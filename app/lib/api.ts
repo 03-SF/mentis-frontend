@@ -138,7 +138,12 @@ export const usersApi = {
 export const assessmentApi = {
   getQuestions: (): Promise<any> => apiClient.get('/assessment/questions'),
   submitAssessment: (data: { 
-    answers: Array<{ questionId: string; selectedOptionIndex: number }> 
+    answers: Array<{ questionId: string; selectedOptionIndex: number }>,
+    preferences?: {
+      comfortableWithPhysicalWork: boolean | null;
+      wantsUniversityDegree: boolean | null;
+      openToVocationalCareers: boolean | null;
+    }
   }): Promise<any> => apiClient.post('/assessment/submit', data),
   getResult: (): Promise<any> => apiClient.get('/assessment/result'),
   getAllResults: (): Promise<any> => apiClient.get('/assessment/results/all'),
@@ -152,5 +157,11 @@ export const recommendationApi = {
   getUserRecommendation: (userId: string): Promise<any> => apiClient.get(`/recommendation/${userId}`),
   getAllRecommendations: (): Promise<any> => apiClient.get('/recommendation/all'),
   getRecommendationByResultId: (resultId: string): Promise<any> => apiClient.get(`/recommendation/result/${resultId}`),
+};
+
+// Admin API
+export const adminApi = {
+  getStats: (): Promise<any> => apiClient.get('/admin/stats'),
+  getUsersWithData: (): Promise<any> => apiClient.get('/admin/users'),
 };
 

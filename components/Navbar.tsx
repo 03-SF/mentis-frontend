@@ -10,12 +10,26 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Check if user is logged in
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, []);
+    // Check if user is logged in on mount and when pathname changes
+    const checkAuth = () => {
+      const userData = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      if (userData && token) {
+        setUser(JSON.parse(userData));
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+
+    // Listen for storage changes (in case user logs in/out in another tab)
+    window.addEventListener('storage', checkAuth);
+    
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+    };
+  }, [pathname]); // Re-check on pathname change
 
   const handleLogout = () => {
     // Clear localStorage

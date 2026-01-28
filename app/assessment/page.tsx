@@ -22,6 +22,12 @@ export default function AssessmentPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [showPreferencesModal, setShowPreferencesModal] = useState(false);
+  const [preferences, setPreferences] = useState({
+    comfortableWithPhysicalWork: null as boolean | null,
+    wantsUniversityDegree: null as boolean | null,
+    openToVocationalCareers: null as boolean | null
+  });
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -99,6 +105,19 @@ export default function AssessmentPage() {
       return;
     }
 
+    // Show preferences modal instead of submitting directly
+    setShowPreferencesModal(true);
+  };
+
+  const handlePreferencesSubmit = async () => {
+    // Check if all preferences are answered
+    if (preferences.comfortableWithPhysicalWork === null || 
+        preferences.wantsUniversityDegree === null || 
+        preferences.openToVocationalCareers === null) {
+      alert('Please answer all preference questions.');
+      return;
+    }
+
     setSubmitting(true);
     try {
       const answers = questions.map(q => ({
@@ -106,8 +125,11 @@ export default function AssessmentPage() {
         selectedOptionIndex: selectedAnswers[q._id]
       }));
 
-      console.log('Submitting assessment:', { answerCount: answers.length });
-      const response = await assessmentApi.submitAssessment({ answers });
+      console.log('Submitting assessment:', { answerCount: answers.length, preferences });
+      const response = await assessmentApi.submitAssessment({ 
+        answers,
+        preferences
+      });
       console.log('Assessment response:', response);
       
       if (response.success) {
@@ -176,59 +198,82 @@ export default function AssessmentPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Psychometric Assessment</h1>
-          <p className="text-gray-600">Answer all questions honestly to get accurate career recommendations</p>
+        {/* Gradient Header Banner */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+          <div className="relative">
+            <div className="flex items-center justify-center mb-4">
+              <div className="p-4">
+                <svg className="w-12 h-12 text-white" fill="none" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold text-center mb-2">Psychometric Assessment</h1>
+            <p className="text-center text-blue-100">Answer honestly to discover your ideal career path</p>
+          </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
+        <div className="mb-8 bg-white rounded-xl shadow-lg p-6">
+          <div className="flex justify-between mb-3">
+            <span className="text-sm font-semibold text-gray-700">
               Question {currentIndex + 1} of {questions.length}
             </span>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-semibold text-blue-600">
               {Math.round(progress)}% Complete
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 h-2.5 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500 shadow-lg"
               style={{ width: `${progress}%` }}
             ></div>
+          </div>
+          <div className="mt-3 text-center">
+            <span className="text-xs text-gray-600">
+              {Object.keys(selectedAnswers).length} / {questions.length} answered
+            </span>
           </div>
         </div>
 
         {/* Question Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">
-            {currentQuestion.questionText}
-          </h2>
+        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 border-2 border-transparent hover:border-blue-200 transition-all">
+          <div className="flex items-start mb-6">
+            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl p-3 mr-4 font-bold text-lg min-w-[3rem] text-center">
+              {currentIndex + 1}
+            </div>
+            <h2 className="text-xl font-semibold text-gray-800 leading-relaxed pt-2">
+              {currentQuestion.questionText}
+            </h2>
+          </div>
 
           <div className="space-y-3">
             {currentQuestion.options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionSelect(index)}
-                className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                className={`w-full text-left p-5 rounded-xl border-2 transition-all transform hover:scale-[1.02] ${
                   selectedOptionIndex === index
-                    ? 'border-blue-600 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                    ? 'border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 shadow-lg'
+                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50 hover:shadow-md'
                 }`}
               >
                 <div className="flex items-center">
-                  <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${
+                  <div className={`w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
                     selectedOptionIndex === index
-                      ? 'border-blue-600 bg-blue-600'
+                      ? 'border-blue-600 bg-gradient-to-br from-blue-600 to-purple-600'
                       : 'border-gray-300'
                   }`}>
                     {selectedOptionIndex === index && (
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
                     )}
                   </div>
                   <span className={`text-base ${
-                    selectedOptionIndex === index ? 'font-medium text-blue-900' : 'text-gray-700'
+                    selectedOptionIndex === index ? 'font-semibold text-blue-900' : 'text-gray-700'
                   }`}>
                     {option.text}
                   </span>
@@ -239,70 +284,245 @@ export default function AssessmentPage() {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-8">
           <button
             onClick={handlePrevious}
             disabled={currentIndex === 0}
-            className={`px-6 py-2 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-xl font-semibold transition-all transform ${
               currentIndex === 0
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
+                : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50 hover:shadow-lg hover:scale-105'
             }`}
           >
-            Previous
+            ← Previous
           </button>
-
-          <div className="text-sm text-gray-600">
-            {Object.keys(selectedAnswers).length} / {questions.length} answered
-          </div>
 
           {currentIndex < questions.length - 1 ? (
             <button
               onClick={handleNext}
               disabled={selectedOptionIndex === undefined}
-              className={`px-6 py-2 rounded-lg font-semibold transition ${
+              className={`px-8 py-3 rounded-xl font-semibold transition-all transform ${
                 selectedOptionIndex === undefined
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg'
+                  : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl hover:scale-105'
               }`}
             >
-              Next
+              Next →
             </button>
           ) : (
             <button
               onClick={handleSubmit}
               disabled={!allAnswered || submitting}
-              className={`px-8 py-2 rounded-lg font-semibold transition ${
+              className={`px-10 py-3 rounded-xl font-semibold transition-all transform ${
                 !allAnswered || submitting
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-lg'
+                  : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-xl hover:scale-105'
               }`}
             >
-              {submitting ? 'Submitting...' : 'Submit Assessment'}
+              {submitting ? (
+                <span className="flex items-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Submitting...
+                </span>
+              ) : '✓ Submit Assessment'}
             </button>
           )}
         </div>
 
         {/* Instructions */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-200 shadow-md">
           <div className="flex items-start">
-            <div className="text-blue-600 mr-3">
+            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white p-3 rounded-xl mr-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-800 mb-1">Tips</h4>
-              <ul className="text-sm text-gray-700 space-y-1">
-                <li>• Answer honestly based on your preferences</li>
-                <li>• There are no right or wrong answers</li>
-                <li>• You can go back and change your answers</li>
-                <li>• Submit only when all questions are answered</li>
+              <h4 className="font-bold text-gray-800 mb-2 text-lg">Assessment Tips</h4>
+              <ul className="text-sm text-gray-700 space-y-2">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">✓</span>
+                  <span>Answer honestly based on your true preferences</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">✓</span>
+                  <span>There are no right or wrong answers</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>You can navigate back and change your answers</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">✓</span>
+                  <span>Submit only when all questions are answered</span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </main>
+
+      {/* Preferences Modal */}
+      {showPreferencesModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-2xl">
+              <h2 className="text-2xl font-bold mb-2">A Few Quick Questions</h2>
+              <p className="text-blue-100">Help us personalize your career recommendations</p>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-6">
+              {/* Question 1 */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+                <h3 className="font-semibold text-gray-800 mb-4 text-lg">
+                  Are you comfortable with physical outdoor work?
+                </h3>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPreferences({...preferences, comfortableWithPhysicalWork: true})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.comfortableWithPhysicalWork === true
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✓ Yes
+                  </button>
+                  <button
+                    onClick={() => setPreferences({...preferences, comfortableWithPhysicalWork: false})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.comfortableWithPhysicalWork === false
+                        ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-red-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✗ No
+                  </button>
+                </div>
+              </div>
+
+              {/* Question 2 */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+                <h3 className="font-semibold text-gray-800 mb-4 text-lg">
+                  Do you want a university degree?
+                </h3>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPreferences({...preferences, wantsUniversityDegree: true})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.wantsUniversityDegree === true
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✓ Yes
+                  </button>
+                  <button
+                    onClick={() => setPreferences({...preferences, wantsUniversityDegree: false})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.wantsUniversityDegree === false
+                        ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-red-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✗ No
+                  </button>
+                </div>
+              </div>
+
+              {/* Question 3 */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+                <h3 className="font-semibold text-gray-800 mb-4 text-lg">
+                  Are you open to practical training programs (trade schools, diplomas) instead of university degrees?
+                </h3>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPreferences({...preferences, openToVocationalCareers: true})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.openToVocationalCareers === true
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✓ Yes
+                  </button>
+                  <button
+                    onClick={() => setPreferences({...preferences, openToVocationalCareers: false})}
+                    className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all ${
+                      preferences.openToVocationalCareers === false
+                        ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-red-500 hover:shadow-md'
+                    }`}
+                  >
+                    ✗ No
+                  </button>
+                </div>
+              </div>
+
+              {/* Info Note */}
+              <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-4">
+                <div className="flex items-start">
+                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-sm text-yellow-800">
+                    Your answers help us show careers that match your practical preferences. You can still explore all career options later.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-gray-50 p-6 rounded-b-2xl flex justify-between gap-4">
+              <button
+                onClick={() => {
+                  setShowPreferencesModal(false);
+                  setPreferences({
+                    comfortableWithPhysicalWork: null,
+                    wantsUniversityDegree: null,
+                    openToVocationalCareers: null
+                  });
+                }}
+                className="px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-100 hover:shadow-md transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handlePreferencesSubmit}
+                disabled={
+                  preferences.comfortableWithPhysicalWork === null ||
+                  preferences.wantsUniversityDegree === null ||
+                  preferences.openToVocationalCareers === null ||
+                  submitting
+                }
+                className={`px-8 py-3 rounded-xl font-semibold transition-all transform ${
+                  preferences.comfortableWithPhysicalWork === null ||
+                  preferences.wantsUniversityDegree === null ||
+                  preferences.openToVocationalCareers === null ||
+                  submitting
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                {submitting ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </span>
+                ) : 'Continue to Results →'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

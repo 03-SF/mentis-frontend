@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { usersApi, assessmentApi } from '../../lib/api';
+import { adminApi } from '../../lib/api';
 
-interface TestScore {
-  _id: string;
-  score: number;
-  totalQuestions: number;
-  percentage: number;
-  completedAt: string;
+interface AdminStats {
+  totalUsers: number;
+  activeUsers: number;
+  totalAssessments: number;
+  topCareers: Array<{ career: string; count: number }>;
+  aiCallsToday: number;
 }
 
 interface Student {
@@ -17,16 +17,16 @@ interface Student {
   name: string;
   email: string;
   createdAt: string;
+  lastActivity: string;
   assessmentCount: number;
-  testScores?: TestScore[];
 }
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,32 +45,22 @@ export default function AdminDashboard() {
           return;
         }
 
-        // Fetch all students
-        const response = await usersApi.getAllStudents();
-        if (response.success && response.data) {
-          // Fetch test scores for each student
-          const studentsWithScores = await Promise.all(
-            response.data.map(async (student: Student) => {
-              try {
-                const resultsResponse = await assessmentApi.getAllResults();
-                const studentResults = resultsResponse.data?.filter(
-                  (result: any) => result.userId === student._id || result.user?._id === student._id
-                );
-                return {
-                  ...student,
-                  testScores: studentResults || []
-                };
-              } catch (err) {
-                console.error(`Error fetching scores for ${student.name}:`, err);
-                return { ...student, testScores: [] };
-              }
-            })
-          );
-          setStudents(studentsWithScores);
+        // Fetch admin stats and users in parallel
+        const [statsResponse, usersResponse] = await Promise.all([
+          adminApi.getStats(),
+          adminApi.getUsersWithData()
+        ]);
+
+        if (statsResponse.success && statsResponse.data) {
+          setStats(statsResponse.data);
+        }
+
+        if (usersResponse.success && usersResponse.data) {
+          setStudents(usersResponse.data);
         }
       } catch (err: any) {
-        console.error('Error fetching students:', err);
-        setError(err.response?.data?.message || 'Failed to load students');
+        console.error('Error fetching admin data:', err);
+        setError(err.response?.data?.message || 'Failed to load admin dashboard');
       } finally {
         setLoading(false);
       }
@@ -115,110 +105,172 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Manage students and view assessment records</p>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Students</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">{students.length}</p>
-              </div>
-              <div className="bg-blue-100 p-3 rounded-lg">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
+        {/* Gradient Header Banner */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+          <div className="flex items-center space-x-4">
+            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
+              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
             </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Assessments</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {students.reduce((sum, s) => sum + s.assessmentCount, 0)}
-                </p>
-              </div>
-              <div className="bg-purple-100 p-3 rounded-lg">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Active Results</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {students.reduce((sum, s) => sum + (s.testScores?.length || 0), 0)}
-                </p>
-              </div>
-              <div className="bg-green-100 p-3 rounded-lg">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Deleted Results</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">
-                  {students.reduce((sum, s) => sum + s.assessmentCount, 0) - 
-                   students.reduce((sum, s) => sum + (s.testScores?.length || 0), 0)}
-                </p>
-              </div>
-              <div className="bg-red-100 p-3 rounded-lg">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </div>
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+              <p className="text-blue-100">Monitor system metrics and manage users</p>
             </div>
           </div>
         </div>
+
+        {/* Main Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+          {/* Total Users */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-lg">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-sm font-medium text-gray-600 mb-1">Total Users</p>
+            <p className="text-3xl font-bold text-gray-900">{stats?.totalUsers || 0}</p>
+          </div>
+
+          {/* Active Users */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="bg-gradient-to-br from-green-500 to-green-600 p-3 rounded-xl shadow-lg">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-sm font-medium text-gray-600 mb-1">Active Users</p>
+            <p className="text-3xl font-bold text-gray-900">{stats?.activeUsers || 0}</p>
+            <p className="text-xs text-gray-500 mt-1">Last 7 days</p>
+          </div>
+
+          {/* Career Assessments */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-xl shadow-lg">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-sm font-medium text-gray-600 mb-1">Assessments</p>
+            <p className="text-3xl font-bold text-gray-900">{stats?.totalAssessments || 0}</p>
+            <p className="text-xs text-gray-500 mt-1">Completed</p>
+          </div>
+
+          {/* AI Calls Today */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl shadow-lg">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-sm font-medium text-gray-600 mb-1">AI Calls</p>
+            <p className="text-3xl font-bold text-gray-900">{stats?.aiCallsToday || 0}</p>
+            <p className="text-xs text-gray-500 mt-1">Today</p>
+          </div>
+
+          {/* Total Students */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-3 rounded-xl shadow-lg">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-sm font-medium text-gray-600 mb-1">Registered</p>
+            <p className="text-3xl font-bold text-gray-900">{students.length}</p>
+            <p className="text-xs text-gray-500 mt-1">Students</p>
+          </div>
+        </div>
+
+        {/* Top Careers Section */}
+        {stats?.topCareers && stats.topCareers.length > 0 && (
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 p-2 rounded-lg mr-3">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              Most Selected Careers
+            </h2>
+            <div className="space-y-4">
+              {stats.topCareers.map((career, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-white font-bold mr-4 shadow-lg">
+                    {index + 1}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-800 font-semibold">{career.career}</span>
+                      <span className="text-gray-600 font-medium">{career.count} selections</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div 
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-2.5 rounded-full transition-all"
+                        style={{ width: `${(career.count / (stats.topCareers[0]?.count || 1)) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Students Table */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">Student Records</h2>
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+              <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-2 rounded-lg mr-3">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              All Students ({students.length})
+            </h2>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gradient-to-r from-gray-100 to-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Student
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Email
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Joined
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Assessments
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Last Active
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Test Scores
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Assessments
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {students.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                      No students found
+                    <td colSpan={5} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <svg className="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <p className="text-gray-500 text-lg">No students registered yet</p>
+                      </div>
                     </td>
                   </tr>
                 ) : (
@@ -227,108 +279,53 @@ export default function AdminDashboard() {
                     const initials = nameParts.length >= 2 
                       ? `${nameParts[0].charAt(0)}${nameParts[nameParts.length - 1].charAt(0)}`
                       : nameParts[0].charAt(0);
-                    const isExpanded = expandedStudent === student._id;
                     
                     return (
-                    <>
-                    <tr key={student._id} className="hover:bg-gray-50 transition">
+                    <tr key={student._id} className="hover:bg-blue-50/30 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-                            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg">
                               {initials}
                             </div>
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="text-sm font-semibold text-gray-900">
                               {student.name}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{student.email}</div>
+                        <div className="text-sm text-gray-700">{student.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">
-                          {new Date(student.createdAt).toLocaleDateString()}
+                        <div className="text-sm text-gray-600">
+                          {new Date(student.createdAt).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                          {student.assessmentCount} {student.assessmentCount === 1 ? 'test' : 'tests'}
-                        </span>
+                        <div className="text-sm text-gray-600">
+                          {student.lastActivity 
+                            ? new Date(student.lastActivity).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })
+                            : 'Never'
+                          }
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {student.testScores && student.testScores.length > 0 ? (
-                          <button
-                            onClick={() => setExpandedStudent(isExpanded ? null : student._id)}
-                            className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center gap-1"
-                          >
-                            View {student.testScores.length} score{student.testScores.length > 1 ? 's' : ''}
-                            <svg 
-                              className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                              fill="none" 
-                              stroke="currentColor" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                        ) : (
-                          <span className="text-sm text-gray-400">No tests taken</span>
-                        )}
+                        <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800">
+                          {student.assessmentCount} {student.assessmentCount === 1 ? 'assessment' : 'assessments'}
+                        </span>
                       </td>
                     </tr>
-                    {isExpanded && student.testScores && student.testScores.length > 0 && (
-                      <tr>
-                        <td colSpan={5} className="px-6 py-4 bg-gray-50">
-                          <div className="space-y-3">
-                            <h4 className="font-semibold text-gray-700 mb-3">Test Scores:</h4>
-                            {student.testScores.map((score, index) => (
-                              <div 
-                                key={score._id || index} 
-                                className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 flex items-center justify-between"
-                              >
-                                <div className="flex items-center gap-4">
-                                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-3 font-bold text-lg min-w-[80px] text-center">
-                                    {score.percentage?.toFixed(0) || 0}%
-                                  </div>
-                                  <div>
-                                    <p className="text-sm font-medium text-gray-900">
-                                      Score: {score.score} / {score.totalQuestions}
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                      Completed: {new Date(score.completedAt).toLocaleString()}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  {score.percentage >= 80 ? (
-                                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                      Excellent
-                                    </span>
-                                  ) : score.percentage >= 60 ? (
-                                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                      Good
-                                    </span>
-                                  ) : score.percentage >= 40 ? (
-                                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                      Average
-                                    </span>
-                                  ) : (
-                                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                      Needs Improvement
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                    </>
                     );
                   })
                 )}

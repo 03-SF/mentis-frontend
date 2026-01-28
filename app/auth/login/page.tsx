@@ -73,6 +73,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      console.log('Attempting login with:', { email: formData.email }); // Debug
       const response = await authApi.login(formData);
       
       console.log('Login response:', response); // Debug log
@@ -80,6 +81,8 @@ export default function LoginPage() {
       // Handle nested response structure
       const userData = response.data?.user || response.user;
       const token = response.data?.token || response.token;
+      
+      console.log('Extracted data:', { hasToken: !!token, hasUser: !!userData }); // Debug
       
       if (!token || !userData) {
         throw new Error('Invalid response from server');
@@ -89,6 +92,8 @@ export default function LoginPage() {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
 
+      console.log('Login successful, redirecting...'); // Debug
+
       // Redirect based on role
       if (userData.role === 'admin') {
         router.push('/dashboard/admin');
@@ -97,7 +102,18 @@ export default function LoginPage() {
       }
     } catch (error: any) {
       console.error('Login error:', error);
-      setApiError(error.response?.data?.message || 'Login failed. Please try again.');
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response,
+        responseData: error.response?.data
+      });
+      
+      // More specific error messages
+      if (error.message === 'Failed to fetch' || error.message.includes('fetch')) {
+        setApiError('Cannot connect to server. Please make sure the backend is running on port 5000.');
+      } else {
+        setApiError(error.response?.data?.message || error.message || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

@@ -59,7 +59,8 @@ export default function SettingsPage() {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        router.push('/auth/login');
+        console.log('No token found, redirecting to login');
+        setTimeout(() => router.push('/auth/login'), 100);
         return;
       }
 
@@ -202,81 +203,140 @@ export default function SettingsPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Settings</h1>
-          <p className="text-gray-600">Manage your account preferences and security</p>
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 md:p-10 text-white mb-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+          <div className="relative z-10">
+            <div className="flex items-center mb-4">
+              <div className="bg-white bg-opacity-20 backdrop-blur-sm p-3 rounded-xl mr-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold mb-1">Settings</h1>
+                <p className="text-blue-100 text-lg">Manage your account preferences and security</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-t-xl shadow-lg border-b border-gray-200">
+        <div className="bg-white rounded-t-2xl shadow-xl border-b-2 border-gray-100">
           <div className="flex overflow-x-auto">
             <button
               onClick={() => setActiveTab('account')}
-              className={`px-6 py-4 font-medium transition ${
+              className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'account'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-blue-600'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
               }`}
             >
-              Account
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Account
+              </div>
+              {activeTab === 'account' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+              )}
             </button>
             <button
               onClick={() => setActiveTab('profile')}
-              className={`px-6 py-4 font-medium transition ${
+              className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'profile'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-blue-600'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
               }`}
             >
-              Profile
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Profile
+              </div>
+              {activeTab === 'profile' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+              )}
             </button>
             <button
               onClick={() => setActiveTab('learning')}
-              className={`px-6 py-4 font-medium transition ${
+              className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'learning'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-blue-600'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
               }`}
             >
-              Preferences
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Preferences
+              </div>
+              {activeTab === 'learning' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+              )}
             </button>
             <button
               onClick={() => setActiveTab('privacy')}
-              className={`px-6 py-4 font-medium transition ${
+              className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'privacy'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-800'
+                  ? 'text-blue-600'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
               }`}
             >
-              Privacy
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Privacy
+              </div>
+              {activeTab === 'privacy' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+              )}
             </button>
           </div>
         </div>
 
         {/* Tab Content */}
-        <div className="bg-white rounded-b-xl shadow-lg p-8">
+        <div className="bg-white rounded-b-2xl shadow-xl p-8 md:p-10 border border-gray-100 border-t-0">
           {/* Alerts */}
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-              {error}
+            <div className="mb-6 bg-red-50 border-2 border-red-200 text-red-700 px-6 py-4 rounded-xl flex items-start gap-3">
+              <svg className="w-6 h-6 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-medium">{error}</span>
             </div>
           )}
           {success && (
-            <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-              {success}
+            <div className="mb-6 bg-green-50 border-2 border-green-200 text-green-700 px-6 py-4 rounded-xl flex items-start gap-3">
+              <svg className="w-6 h-6 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-medium">{success}</span>
             </div>
           )}
 
           {/* Account Tab */}
           {activeTab === 'account' && (
-            <div className="space-y-8">
+            <div className="space-y-10">
               {/* Basic Info */}
               <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Basic Information</h2>
-                <form onSubmit={handleSaveBasicInfo} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center mb-6">
+                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Basic Information</h2>
+                </div>
+                <form onSubmit={handleSaveBasicInfo} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">
                         First Name
                       </label>
                       <input
@@ -284,12 +344,12 @@ export default function SettingsPage() {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleBasicInfoChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">
                         Last Name
                       </label>
                       <input
@@ -297,27 +357,26 @@ export default function SettingsPage() {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleBasicInfoChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        required
+                        className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email <span className="text-gray-500 text-xs">(read-only)</span>
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      Email <span className="text-gray-400 text-xs font-normal">(read-only)</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 cursor-not-allowed"
+                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl bg-gray-50 cursor-not-allowed"
                       disabled
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={saving}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition disabled:opacity-50"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
                   >
                     {saving ? 'Saving...' : 'Save Changes'}
                   </button>
@@ -325,11 +384,18 @@ export default function SettingsPage() {
               </div>
 
               {/* Change Password */}
-              <div className="border-t pt-8">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Change Password</h2>
-                <form onSubmit={handleChangePassword} className="space-y-4 max-w-md">
+              <div className="border-t-2 border-gray-100 pt-10">
+                <div className="flex items-center mb-6">
+                  <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-xl mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Change Password</h2>
+                </div>
+                <form onSubmit={handleChangePassword} className="space-y-6 max-w-2xl">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       Current Password
                     </label>
                     <input
@@ -337,12 +403,12 @@ export default function SettingsPage() {
                       name="currentPassword"
                       value={passwordData.currentPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       New Password
                     </label>
                     <input
@@ -350,13 +416,13 @@ export default function SettingsPage() {
                       name="newPassword"
                       value={passwordData.newPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       minLength={8}
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       Confirm New Password
                     </label>
                     <input
@@ -364,14 +430,14 @@ export default function SettingsPage() {
                       name="confirmPassword"
                       value={passwordData.confirmPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={saving}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition disabled:opacity-50"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
                   >
                     {saving ? 'Updating...' : 'Update Password'}
                   </button>
@@ -379,23 +445,30 @@ export default function SettingsPage() {
               </div>
 
               {/* Delete Account */}
-              <div className="border-t pt-8">
-                <h2 className="text-xl font-bold text-red-600 mb-4">Danger Zone</h2>
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <p className="text-gray-700 mb-4">
-                    Once you delete your account, there is no going back. This action is permanent.
+              <div className="border-t-2 border-gray-100 pt-10">
+                <div className="flex items-center mb-6">
+                  <div className="bg-gradient-to-br from-red-500 to-red-600 p-3 rounded-xl mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl font-bold text-red-600">Danger Zone</h2>
+                </div>
+                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+                  <p className="text-gray-700 mb-6 text-lg">
+                    Once you delete your account, there is no going back. This action is permanent and all your data will be lost.
                   </p>
                   {showDeleteConfirm ? (
-                    <div className="flex gap-3">
+                    <div className="flex gap-4">
                       <button
                         onClick={handleDeleteAccount}
-                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+                        className="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition-all hover:shadow-xl"
                       >
                         Yes, Delete My Account
                       </button>
                       <button
                         onClick={() => setShowDeleteConfirm(false)}
-                        className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
+                        className="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all"
                       >
                         Cancel
                       </button>
@@ -403,7 +476,7 @@ export default function SettingsPage() {
                   ) : (
                     <button
                       onClick={() => setShowDeleteConfirm(true)}
-                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+                      className="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition-all hover:shadow-xl"
                     >
                       Delete Account
                     </button>

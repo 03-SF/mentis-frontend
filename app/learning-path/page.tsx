@@ -123,28 +123,28 @@ function LearningPathContent() {
   const getPathIcon = (type: string) => {
     if (type.includes('Academic')) {
       return (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
         </svg>
       );
     } else if (type.includes('Skill')) {
       return (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
         </svg>
       );
     } else if (type.includes('Hybrid')) {
       return (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
       );
     } else {
       return (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       );
     }
@@ -227,98 +227,107 @@ function LearningPathContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Results
-          </button>
-
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
-            <div className="flex items-center mb-4">
-              <svg className="w-12 h-12 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-              <div>
-                <h1 className="text-3xl font-bold">Learning Path</h1>
-                <p className="text-blue-100 mt-1">{learningPathData.career}</p>
+        {/* Gradient Header Banner */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+          <div className="relative">
+            <div className="flex items-center justify-center mb-6">
+              <div className="p-4">
+                <svg className="w-12 h-12 text-white" fill="none" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                {learningPathData.userLevel}
+            <div className="text-center">
+              <h1 className="text-4xl font-bold mb-2">Your Personalized Learning Path</h1>
+              <div className="inline-block bg-white px-6 py-3 rounded-full shadow-lg mt-4">
+                <p className="text-xl font-semibold text-blue-700">{learningPathData.career}</p>
               </div>
-              <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 text-sm mt-6">
+              <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-md">
+                <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                {learningPathData.countryContext}
+                <span className="font-medium text-gray-700">{learningPathData.userLevel}</span>
+              </div>
+              <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-md">
+                <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-medium text-gray-700">{learningPathData.countryContext}</span>
               </div>
             </div>
             {learningPathData.disclaimer && (
-              <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-gray-700">
-                <strong>Note:</strong> {learningPathData.disclaimer}
+              <div className="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 text-sm shadow-sm">
+                <strong className="block mb-1 text-yellow-800">Note:</strong>
+                <p className="text-yellow-700">{learningPathData.disclaimer}</p>
               </div>
             )}
             {learningPathData.note && (
-              <div className="mt-4 bg-blue-500/30 rounded-lg p-3 text-sm">
-                <strong>Note:</strong> {learningPathData.note}
+              <div className="mt-4 bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-sm shadow-sm">
+                <strong className="block mb-1 text-blue-800">Note:</strong>
+                <p className="text-blue-700">{learningPathData.note}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Info Banner */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 mb-8 shadow-md">
           <div className="flex items-start">
-            <svg className="w-6 h-6 text-blue-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white p-3 rounded-xl mr-4">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
             <div>
-              <h3 className="font-semibold text-gray-800 mb-1">Multiple Pathways Available</h3>
-              <p className="text-gray-600 text-sm">
-                We've generated {learningPathData.paths.length} different pathways to help you achieve your career goal. 
+              <h3 className="font-bold text-gray-800 mb-2 text-lg">Multiple Pathways Available</h3>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                We've generated <span className="font-bold text-blue-600">{learningPathData.paths.length}</span> different pathways to help you achieve your career goal. 
                 Each path is equally valid — choose the one that fits your circumstances, resources, and preferences best.
-                <strong className="block mt-2">These are advisory suggestions, not ranked recommendations.</strong>
+                <strong className="block mt-3 text-purple-700">These are advisory suggestions, not ranked recommendations.</strong>
               </p>
             </div>
           </div>
         </div>
 
         {/* Learning Paths */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {learningPathData.paths.map((path, index) => {
             const colorType = getPathColor(path.path_name);
             const colors = getColorClasses(colorType);
             return (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div key={index} className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-100 hover:border-blue-200 hover:shadow-2xl transition-all transform hover:scale-[1.01]">
                 {/* Path Header */}
-                <div className={`${colors.header} p-6 text-white`}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="mr-4">
-                        {getPathIcon(path.path_name)}
+                <div className={`${colors.header} p-8 text-white relative overflow-hidden`}>
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white opacity-10 rounded-full -mr-20 -mt-20"></div>
+                  <div className="flex items-start justify-between relative">
+                    <div className="flex items-start flex-1">
+                      <div className="bg-white p-3 rounded-xl mr-4 shadow-lg flex-shrink-0">
+                        <div className="text-blue-600">
+                          {getPathIcon(path.path_name)}
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">{path.path_name}</h3>
-                        <p className="text-sm opacity-90 mt-1">{path.summary}</p>
-                        <div className="flex gap-4 mt-2 text-xs opacity-80">
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold mb-2">{path.path_name}</h3>
+                        <p className="text-sm opacity-90 leading-relaxed mb-3">{path.summary}</p>
+                        <div className="flex flex-wrap gap-3 text-xs font-medium">
                           {path.intermediate_duration && (
-                            <span>Intermediate: {path.intermediate_duration}</span>
+                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-blue-700">
+                              <span className="mr-1.5">📚</span> Intermediate: {path.intermediate_duration}
+                            </span>
                           )}
                           {path.degree_duration && (
-                            <span>Degree/Diploma: {path.degree_duration}</span>
+                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-purple-700">
+                              <span className="mr-1.5">🎓</span> Degree: {path.degree_duration}
+                            </span>
                           )}
                           {path.total_duration && !path.intermediate_duration && (
-                            <span>Total Duration: {path.total_duration}</span>
+                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-gray-700">
+                              <span className="mr-1.5">⏱️</span> Total: {path.total_duration}
+                            </span>
                           )}
                         </div>
                       </div>
@@ -327,14 +336,19 @@ function LearningPathContent() {
                 </div>
 
                 {/* Path Content */}
-                <div className="p-6 space-y-6">
+                <div className="p-8 space-y-8 bg-gradient-to-b from-white to-gray-50">
                   {/* Intermediate Phase */}
                   {path.intermediate_phase && path.intermediate_phase.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">📚 Intermediate Phase (Post-Grade 10)</h4>
-                      <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-100">
+                      <h4 className="font-bold text-gray-800 mb-3 text-lg flex items-center">
+                        <span className="text-2xl mr-2">📚</span> Intermediate Phase (Post-Grade 10)
+                      </h4>
+                      <ul className="space-y-2 ml-10">
                         {path.intermediate_phase.map((phase, idx) => (
-                          <li key={idx}>{phase}</li>
+                          <li key={idx} className="text-gray-700 flex items-start">
+                            <span className="text-blue-500 mr-2 mt-1">•</span>
+                            <span>{phase}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -342,11 +356,16 @@ function LearningPathContent() {
 
                   {/* Degree/Diploma Options */}
                   {path.degree_or_diploma_options && path.degree_or_diploma_options.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">🎓 Degree/Diploma Options</h4>
-                      <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-100">
+                      <h4 className="font-bold text-gray-800 mb-3 text-lg flex items-center">
+                        <span className="text-2xl mr-2">🎓</span> Degree/Diploma Options
+                      </h4>
+                      <ul className="space-y-2 ml-10">
                         {path.degree_or_diploma_options.map((option, idx) => (
-                          <li key={idx}>{option}</li>
+                          <li key={idx} className="text-gray-700 flex items-start">
+                            <span className="text-purple-500 mr-2 mt-1">•</span>
+                            <span>{option}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -354,15 +373,17 @@ function LearningPathContent() {
 
                   {/* Skills to Build */}
                   {path.skills_grouped && (
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-3">💡 Skills to Build</h4>
-                      <div className="space-y-3">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-100">
+                      <h4 className="font-bold text-gray-800 mb-4 text-lg flex items-center">
+                        <span className="text-2xl mr-2">💡</span> Skills to Build
+                      </h4>
+                      <div className="space-y-4">
                         {path.skills_grouped.core_skills && path.skills_grouped.core_skills.length > 0 && (
                           <div>
-                            <h5 className="text-sm font-medium text-gray-700 mb-1">Core Skills</h5>
-                            <div className="flex flex-wrap gap-2">
+                            <h5 className="text-sm font-semibold text-gray-700 mb-2 ml-10">Core Skills</h5>
+                            <div className="flex flex-wrap gap-2 ml-10">
                               {path.skills_grouped.core_skills.map((skill, idx) => (
-                                <span key={idx} className={`px-3 py-1 rounded-full text-sm ${colors.badge}`}>
+                                <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition ${colors.badge}`}>
                                   {skill}
                                 </span>
                               ))}
@@ -371,10 +392,10 @@ function LearningPathContent() {
                         )}
                         {path.skills_grouped.technical_tools && path.skills_grouped.technical_tools.length > 0 && (
                           <div>
-                            <h5 className="text-sm font-medium text-gray-700 mb-1">Technical Tools</h5>
-                            <div className="flex flex-wrap gap-2">
+                            <h5 className="text-sm font-semibold text-gray-700 mb-2 ml-10">Technical Tools</h5>
+                            <div className="flex flex-wrap gap-2 ml-10">
                               {path.skills_grouped.technical_tools.map((tool, idx) => (
-                                <span key={idx} className={`px-3 py-1 rounded-full text-sm ${colors.badge}`}>
+                                <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition ${colors.badge}`}>
                                   {tool}
                                 </span>
                               ))}
@@ -383,10 +404,10 @@ function LearningPathContent() {
                         )}
                         {path.skills_grouped.business_skills && path.skills_grouped.business_skills.length > 0 && (
                           <div>
-                            <h5 className="text-sm font-medium text-gray-700 mb-1">Business & Marketing Skills</h5>
-                            <div className="flex flex-wrap gap-2">
+                            <h5 className="text-sm font-semibold text-gray-700 mb-2 ml-10">Business & Marketing Skills</h5>
+                            <div className="flex flex-wrap gap-2 ml-10">
                               {path.skills_grouped.business_skills.map((skill, idx) => (
-                                <span key={idx} className={`px-3 py-1 rounded-full text-sm ${colors.badge}`}>
+                                <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition ${colors.badge}`}>
                                   {skill}
                                 </span>
                               ))}
@@ -398,11 +419,13 @@ function LearningPathContent() {
                   )}
                   {/* Legacy Skills Support */}
                   {!path.skills_grouped && path.skills_to_build && path.skills_to_build.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">💡 Skills to Build</h4>
-                      <div className="flex flex-wrap gap-2">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-100">
+                      <h4 className="font-bold text-gray-800 mb-3 text-lg flex items-center">
+                        <span className="text-2xl mr-2">💡</span> Skills to Build
+                      </h4>
+                      <div className="flex flex-wrap gap-2 ml-10">
                         {path.skills_to_build.map((skill, idx) => (
-                          <span key={idx} className={`px-3 py-1 rounded-full text-sm ${colors.badge}`}>
+                          <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition ${colors.badge}`}>
                             {skill}
                           </span>
                         ))}
@@ -412,11 +435,16 @@ function LearningPathContent() {
 
                   {/* Entry Level Roles */}
                   {path.entry_level_roles && path.entry_level_roles.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">🚀 Entry Level Roles</h4>
-                      <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-100">
+                      <h4 className="font-bold text-gray-800 mb-3 text-lg flex items-center">
+                        <span className="text-2xl mr-2">🚀</span> Entry Level Roles
+                      </h4>
+                      <ul className="space-y-2 ml-10">
                         {path.entry_level_roles.map((role, idx) => (
-                          <li key={idx}>{role}</li>
+                          <li key={idx} className="text-gray-700 flex items-start">
+                            <span className="text-green-500 mr-2 mt-1">•</span>
+                            <span>{role}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -428,18 +456,15 @@ function LearningPathContent() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex justify-center gap-4">
-          <button
-            onClick={() => router.push('/results')}
-            className="bg-white text-gray-700 font-semibold py-3 px-8 rounded-lg border-2 border-gray-300 hover:border-gray-400 transition"
-          >
-            Back to Results
-          </button>
+        <div className="mt-12 flex justify-center">
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-8 rounded-lg hover:shadow-lg transition"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-10 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center"
           >
-            Go to Dashboard
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Back to Dashboard
           </button>
         </div>
       </main>
