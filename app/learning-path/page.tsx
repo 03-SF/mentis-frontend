@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface SkillsGrouped {
@@ -35,7 +35,7 @@ interface LearningPathData {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
-export default function LearningPathPage() {
+function LearningPathContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const career = searchParams.get('career');
@@ -444,5 +444,20 @@ export default function LearningPathPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function LearningPathPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading learning path...</p>
+        </div>
+      </div>
+    }>
+      <LearningPathContent />
+    </Suspense>
   );
 }
