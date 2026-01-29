@@ -107,11 +107,12 @@ function LearningPathContent() {
         } else {
           throw new Error('Invalid response format');
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Error fetching learning path:', err);
         
         // Only handle non-401 errors here (401 is handled above)
-        setError(err.message || 'Failed to load learning path');
+        const error = err as { message?: string };
+        setError(error.message || 'Failed to load learning path');
       } finally {
         setLoading(false);
       }
@@ -285,7 +286,7 @@ function LearningPathContent() {
             <div>
               <h3 className="font-bold text-gray-800 mb-2 text-lg">Multiple Pathways Available</h3>
               <p className="text-gray-700 text-sm leading-relaxed">
-                We've generated <span className="font-bold text-blue-600">{learningPathData.paths.length}</span> different pathways to help you achieve your career goal. 
+                We&apos;ve generated <span className="font-bold text-blue-600">{learningPathData.paths.length}</span> different pathways to help you achieve your career goal. 
                 Each path is equally valid — choose the one that fits your circumstances, resources, and preferences best.
                 <strong className="block mt-3 text-purple-700">These are advisory suggestions, not ranked recommendations.</strong>
               </p>

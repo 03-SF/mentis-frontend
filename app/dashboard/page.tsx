@@ -68,9 +68,10 @@ export default function DashboardPage() {
             // Update with full profile data
             setUser(profileData);
           }
-        } catch (profileErr: any) {
+        } catch (profileErr: unknown) {
           // Profile doesn't exist yet (404) - that's okay, basic user data already set
-          if (profileErr.response?.status === 404) {
+          const error = profileErr as { response?: { status?: number } };
+          if (error.response?.status === 404) {
             console.log('No profile yet - showing basic user info from registration');
           } else if (profileErr.response?.status === 401) {
             // Unauthorized - redirect to login

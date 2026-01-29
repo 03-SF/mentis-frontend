@@ -53,6 +53,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     fetchUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchUserData = async () => {
@@ -132,7 +133,7 @@ export default function SettingsPage() {
       
       setSuccess('Profile updated successfully!');
       setTimeout(() => setSuccess(''), 3000);
-    } catch (err: any) {
+    } catch {
       setError('Failed to update profile');
     } finally {
       setSaving(false);

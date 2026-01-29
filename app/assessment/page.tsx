@@ -138,9 +138,10 @@ export default function AssessmentPage() {
       } else {
         throw new Error(response.message || 'Submission failed');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error submitting assessment:', err);
-      const errorMessage = err.response?.data?.message || err.message || 'Failed to submit assessment. Please try again.';
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to submit assessment. Please try again.';
       alert(errorMessage);
     } finally {
       setSubmitting(false);

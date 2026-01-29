@@ -53,6 +53,7 @@ function ResultsContent() {
 
   useEffect(() => {
     fetchAllResults();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

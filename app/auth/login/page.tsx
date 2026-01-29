@@ -100,19 +100,20 @@ export default function LoginPage() {
       } else {
         router.push('/dashboard');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Login error:', error);
+      const err = error as { message?: string; response?: { data?: { message?: string } } };
       console.error('Error details:', {
-        message: error.message,
-        response: error.response,
-        responseData: error.response?.data
+        message: err.message,
+        response: err.response,
+        responseData: err.response?.data
       });
       
       // More specific error messages
-      if (error.message === 'Failed to fetch' || error.message.includes('fetch')) {
+      if (err.message === 'Failed to fetch' || err.message?.includes('fetch')) {
         setApiError('Cannot connect to server. Please make sure the backend is running on port 5000.');
       } else {
-        setApiError(error.response?.data?.message || error.message || 'Login failed. Please try again.');
+        setApiError(err.response?.data?.message || err.message || 'Login failed. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -202,16 +203,14 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-semibold">
               Sign up
             </Link>
           </div>
         </div>
 
-        <p className="text-center text-xs text-gray-500 mt-6">
-          By signing in, you agree to our Terms of Service and Privacy Policy
-        </p>
+        <p className="text-center text-xs text-gray-500 mt-6">\n          By signing in, you agree to our Terms of Service and Privacy Policy\n        </p>
       </div>
     </div>
   );
