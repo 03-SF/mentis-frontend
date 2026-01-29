@@ -188,7 +188,7 @@ function ResultsContent() {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">No Results Found</h2>
-          <p className="text-gray-600 mb-6">You haven't taken any assessments yet. Take your first assessment to discover your career path!</p>
+          <p className="text-gray-600 mb-6">You haven&apos;t taken any assessments yet. Take your first assessment to discover your career path!</p>
           <button
             onClick={() => router.push('/assessment')}
             className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
