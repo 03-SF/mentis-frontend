@@ -63,7 +63,7 @@ export default function ProfilePage() {
         if (response.success && response.data.profile) {
           setUser(response.data.profile);
         }
-      } catch (err) {
+      } catch {
         console.log('Profile API unavailable');
       }
 

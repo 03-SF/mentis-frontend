@@ -89,11 +89,11 @@ export default function SettingsPage() {
             studentInfo: profile.studentInfo || {}
           });
         }
-      } catch (err) {
+      } catch {
         console.log('No profile data');
       }
-    } catch (err: any) {
-      console.error('Error fetching user data:', err);
+    } catch {
+      console.error('Error fetching user data');
       setError('Failed to load user data');
     } finally {
       setLoading(false);

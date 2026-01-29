@@ -121,23 +121,23 @@ export const authApi = {
       province?: string;
       stream?: string;
     };
-  }): Promise<any> => apiClient.post('/auth/signup', data),
-  login: (data: { email: string; password: string }): Promise<any> => apiClient.post('/auth/login', data),
-  logout: (): Promise<any> => apiClient.post('/auth/logout', {}),
+  }): Promise<unknown> => apiClient.post('/auth/signup', data),
+  login: (data: { email: string; password: string }): Promise<unknown> => apiClient.post('/auth/login', data),
+  logout: (): Promise<unknown> => apiClient.post('/auth/logout', {}),
 };
 export const profileApi = {
-  getProfile: (): Promise<any> => apiClient.get('/profile/me'),
-  updateProfile: (data: any): Promise<any> => apiClient.put('/profile/me', data),
+  getProfile: (): Promise<unknown> => apiClient.get('/profile/me'),
+  updateProfile: (data: unknown): Promise<unknown> => apiClient.put('/profile/me', data),
 };
 export const usersApi = {
-  getProfile: (): Promise<any> => apiClient.get('/users/me'),
-  updateProfile: (data: any): Promise<any> => apiClient.patch('/users/me', data),
-  getAllStudents: (): Promise<any> => apiClient.get('/users/students'),
+  getProfile: (): Promise<unknown> => apiClient.get('/users/me'),
+  updateProfile: (data: unknown): Promise<unknown> => apiClient.patch('/users/me', data),
+  getAllStudents: (): Promise<unknown> => apiClient.get('/users/students'),
 };
 
 // Assessment API
 export const assessmentApi = {
-  getQuestions: (): Promise<any> => apiClient.get('/assessment/questions'),
+  getQuestions: (): Promise<unknown> => apiClient.get('/assessment/questions'),
   submitAssessment: (data: { 
     answers: Array<{ questionId: string; selectedOptionIndex: number }>,
     preferences?: {
@@ -145,24 +145,24 @@ export const assessmentApi = {
       wantsUniversityDegree: boolean | null;
       openToVocationalCareers: boolean | null;
     }
-  }): Promise<any> => apiClient.post('/assessment/submit', data),
-  getResult: (): Promise<any> => apiClient.get('/assessment/result'),
-  getAllResults: (): Promise<any> => apiClient.get('/assessment/results/all'),
-  getResultById: (resultId: string): Promise<any> => apiClient.get(`/assessment/result/${resultId}`),
-  deleteResult: (resultId: string): Promise<any> => apiClient.delete(`/assessment/result/${resultId}`),
+  }): Promise<unknown> => apiClient.post('/assessment/submit', data),
+  getResult: (): Promise<unknown> => apiClient.get('/assessment/result'),
+  getAllResults: (): Promise<unknown> => apiClient.get('/assessment/results/all'),
+  getResultById: (resultId: string): Promise<unknown> => apiClient.get(`/assessment/result/${resultId}`),
+  deleteResult: (resultId: string): Promise<unknown> => apiClient.delete(`/assessment/result/${resultId}`),
 };
 
 // Recommendation API
 export const recommendationApi = {
-  getRecommendation: (): Promise<any> => apiClient.get('/recommendation'),
-  getUserRecommendation: (userId: string): Promise<any> => apiClient.get(`/recommendation/${userId}`),
-  getAllRecommendations: (): Promise<any> => apiClient.get('/recommendation/all'),
-  getRecommendationByResultId: (resultId: string): Promise<any> => apiClient.get(`/recommendation/result/${resultId}`),
+  getRecommendation: (): Promise<unknown> => apiClient.get('/recommendation'),
+  getUserRecommendation: (userId: string): Promise<unknown> => apiClient.get(`/recommendation/${userId}`),
+  getAllRecommendations: (): Promise<unknown> => apiClient.get('/recommendation/all'),
+  getRecommendationByResultId: (resultId: string): Promise<unknown> => apiClient.get(`/recommendation/result/${resultId}`),
 };
 
 // Admin API
 export const adminApi = {
-  getStats: (): Promise<any> => apiClient.get('/admin/stats'),
-  getUsersWithData: (): Promise<any> => apiClient.get('/admin/users'),
+  getStats: (): Promise<unknown> => apiClient.get('/admin/stats'),
+  getUsersWithData: (): Promise<unknown> => apiClient.get('/admin/users'),
 };
 

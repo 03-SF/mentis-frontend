@@ -79,10 +79,11 @@ export default function DashboardPage() {
             return;
           }
         }
-      } catch (err: any) {
-        console.error('Dashboard error:', err);
+      } catch (err: unknown) {
+        const error = err as { response?: { status?: number } };
+        console.error('Dashboard error:', error);
         // Only show error for critical failures
-        if (err.response?.status === 401) {
+        if (error.response?.status === 401) {
           localStorage.clear();
           router.push('/auth/login');
         }
@@ -93,11 +94,6 @@ export default function DashboardPage() {
 
     fetchProfile();
   }, [router]);
-
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push('/auth/login');
-  };
 
   if (loading) {
     return (

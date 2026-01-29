@@ -58,9 +58,10 @@ export default function AdminDashboard() {
         if (usersResponse.success && usersResponse.data) {
           setStudents(usersResponse.data);
         }
-      } catch (err: any) {
-        console.error('Error fetching admin data:', err);
-        setError(err.response?.data?.message || 'Failed to load admin dashboard');
+      } catch (err: unknown) {
+        const error = err as { response?: { data?: { message?: string } } };
+        console.error('Error fetching admin data:', error);
+        setError(error.response?.data?.message || 'Failed to load admin dashboard');
       } finally {
         setLoading(false);
       }
