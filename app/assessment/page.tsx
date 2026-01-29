@@ -47,11 +47,12 @@ export default function AssessmentPage() {
         } else {
           throw new Error('No questions data received');
         }
-      } catch (err: any) {
-        console.error('Error fetching questions:', err);
-        console.error('Error response:', err.response);
+      } catch (err: unknown) {
+        const error = err as { response?: { status?: number; data?: { message?: string } }; message?: string };
+        console.error('Error fetching questions:', error);
+        console.error('Error response:', error.response);
         
-        if (err.response?.status === 401) {
+        if (error.response?.status === 401) {
           // Unauthorized - redirect to login
           localStorage.clear();
           router.push('/auth/login');

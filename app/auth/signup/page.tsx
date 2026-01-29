@@ -101,6 +101,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { confirmPassword, ...registerData } = formData;
       const response = await authApi.register(registerData);
       
@@ -114,10 +115,11 @@ export default function SignupPage() {
       } else {
         router.push('/dashboard');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Signup error:', error);
-      const errorMessage = error.response?.data?.message || 
-                          error.response?.data?.errors?.[0]?.msg ||
+      const err = error as { response?: { data?: { message?: string; errors?: Array<{ msg?: string }> } }; message?: string };
+      const errorMessage = err.response?.data?.message || 
+                          err.response?.data?.errors?.[0]?.msg ||
                           error.message ||
                           'Registration failed. Please try again.';
       setApiError(errorMessage);

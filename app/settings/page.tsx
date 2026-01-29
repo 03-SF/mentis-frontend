@@ -165,7 +165,7 @@ export default function SettingsPage() {
         confirmPassword: ''
       });
       setTimeout(() => setSuccess(''), 3000);
-    } catch (err: any) {
+    } catch {
       setError('Failed to change password');
     } finally {
       setSaving(false);
@@ -177,7 +177,7 @@ export default function SettingsPage() {
       // API call to delete account
       localStorage.clear();
       router.push('/');
-    } catch (err: any) {
+    } catch {
       setError('Failed to delete account');
     }
   };

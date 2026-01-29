@@ -73,23 +73,23 @@ export default function ProfilePage() {
         if (resultsResponse.success && resultsResponse.data) {
           setAssessmentCount(resultsResponse.data.length);
         }
-      } catch (err) {
-        console.log('Assessment API unavailable');
+      } catch {
+        console.log('Assessment results API unavailable');
       }
 
-      // Try to fetch career recommendations - but don't fail if it doesn't work
+      // Try to fetch top careers from recommendations
       try {
         const recsResponse = await recommendationApi.getRecommendation();
         if (recsResponse.success && recsResponse.data) {
           const careers = recsResponse.data.recommendedCareers || [];
           setTopCareers(careers.slice(0, 3));
         }
-      } catch (err) {
+      } catch {
         console.log('Recommendations API unavailable');
       }
 
-    } catch (err) {
-      console.error('Profile error:', err);
+    } catch {
+      console.error('Profile error');
     } finally {
       setLoading(false);
     }

@@ -46,7 +46,7 @@ class ApiClient {
         console.error('API Error:', error);
         
         // Create error object with response data
-        const apiError: any = new Error(error.message || 'Request failed');
+        const apiError = new Error(error.message || 'Request failed') as Error & { response?: { data: unknown; status: number } };
         apiError.response = { data: error, status: response.status };
         throw apiError;
       }
@@ -54,21 +54,22 @@ class ApiClient {
       const data = await response.json();
       console.log('API Success:', data);
       return data;
-    } catch (err: any) {
-      console.error('Fetch error:', err);
+    } catch (err: unknown) {
+      const error = err as Error & { response?: { data: { message?: string } }; message?: string; name?: string; stack?: string };
+      console.error('Fetch error:', error);
       console.error('Error details:', {
-        message: err.message,
-        name: err.name,
-        stack: err.stack,
-        response: err.response
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        response: error.response
       });
       // Re-throw with response attached if it exists
-      if (!err.response && err.message) {
-        const error: any = new Error(err.message);
-        error.response = { data: { message: err.message } };
-        throw error;
+      if (!error.response && error.message) {
+        const newError = new Error(error.message) as Error & { response?: { data: { message: string } } };
+        newError.response = { data: { message: error.message } };
+        throw newError;
       }
-      throw err;
+      throw error;
     }
   }
 
@@ -76,21 +77,21 @@ class ApiClient {
     return this.request<T>(endpoint, { method: 'GET' });
   }
 
-  async post<T>(endpoint: string, data: any): Promise<T> {
+  async post<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
     });
   }
 
-  async patch<T>(endpoint: string, data: any): Promise<T> {
+  async patch<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(data),
     });
   }
 
-  async put<T>(endpoint: string, data: any): Promise<T> {
+  async put<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'PUT',
       body: JSON.stringify(data),
