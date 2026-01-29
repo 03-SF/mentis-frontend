@@ -42,8 +42,9 @@ export default function AssessmentPage() {
         const response = await assessmentApi.getQuestions();
         console.log('Questions response:', response);
         
-        if (response.success && response.data) {
-          setQuestions(response.data);
+        const typedResponse = response as { success?: boolean; data?: Question[] };
+        if (typedResponse.success && typedResponse.data) {
+          setQuestions(typedResponse.data);
         } else {
           throw new Error('No questions data received');
         }
@@ -59,14 +60,14 @@ export default function AssessmentPage() {
           return;
         }
         
-        if (err.message?.includes('already submitted')) {
+        if (error.message?.includes('already submitted')) {
           setError('You have already completed this assessment. View your results on the dashboard.');
-        } else if (err.response?.status === 404) {
+        } else if (error.response?.status === 404) {
           setError('No assessment questions available. Please contact administrator.');
-        } else if (err.response?.data?.message) {
-          setError(err.response.data.message);
-        } else if (err.message) {
-          setError(err.message);
+        } else if (error.response?.data?.message) {
+          setError(error.response.data.message);
+        } else if (error.message) {
+          setError(error.message);
         } else {
           setError('Failed to load questions. Please make sure you are logged in and the backend server is running.');
         }
@@ -133,11 +134,12 @@ export default function AssessmentPage() {
       });
       console.log('Assessment response:', response);
       
-      if (response.success) {
+      const typedResponse = response as { success?: boolean; message?: string };
+      if (typedResponse.success) {
         // Redirect to results page
         router.push('/results');
       } else {
-        throw new Error(response.message || 'Submission failed');
+        throw new Error(typedResponse.message || 'Submission failed');
       }
     } catch (err: unknown) {
       console.error('Error submitting assessment:', err);

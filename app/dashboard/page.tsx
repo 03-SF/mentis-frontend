@@ -25,6 +25,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -62,8 +63,9 @@ export default function DashboardPage() {
         // Try to fetch full profile (optional)
         try {
           const response = await profileApi.getProfile();
-          if (response.success && response.data.profile) {
-            const profileData = response.data.profile;
+          const typedResponse = response as { success?: boolean; data?: { profile?: UserProfile } };
+          if (typedResponse.success && typedResponse.data?.profile) {
+            const profileData = typedResponse.data.profile;
             // Update with full profile data
             setUser(profileData);
           }
@@ -72,7 +74,7 @@ export default function DashboardPage() {
           const error = profileErr as { response?: { status?: number } };
           if (error.response?.status === 404) {
             console.log('No profile yet - showing basic user info from registration');
-          } else if (profileErr.response?.status === 401) {
+          } else if (error.response?.status === 401) {
             // Unauthorized - redirect to login
             localStorage.clear();
             router.push('/auth/login');
@@ -80,12 +82,14 @@ export default function DashboardPage() {
           }
         }
       } catch (err: unknown) {
-        const error = err as { response?: { status?: number } };
-        console.error('Dashboard error:', error);
+        const errorObj = err as { response?: { status?: number; data?: { message?: string } }; message?: string };
+        console.error('Dashboard error:', errorObj);
         // Only show error for critical failures
-        if (error.response?.status === 401) {
+        if (errorObj.response?.status === 401) {
           localStorage.clear();
           router.push('/auth/login');
+        } else {
+          setError(errorObj.response?.data?.message || errorObj.message || 'Failed to load dashboard');
         }
       } finally {
         setLoading(false);

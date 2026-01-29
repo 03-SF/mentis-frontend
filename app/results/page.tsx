@@ -77,18 +77,18 @@ function ResultsContent() {
       }
 
       const response = await assessmentApi.getAllResults();
-      
-      if (response.success && response.data) {
-        setAllResults(response.data);
+      const typedResponse = response as { success?: boolean; data?: ResultData[] };
+      if (typedResponse.success && typedResponse.data) {
+        setAllResults(typedResponse.data);
       }
     } catch (err: unknown) {
       console.error('Error fetching results:', err);
-      const error = err as { response?: { status?: number } };
+      const error = err as { response?: { status?: number; data?: { message?: string } }; message?: string };
       if (error.response?.status === 401) {
         setError('Session expired. Please login again.');
         setTimeout(() => router.push('/auth/login'), 2000);
       } else {
-        setError(err.response?.data?.message || 'Failed to load results');
+        setError(error.response?.data?.message || error.message || 'Failed to load results');
       }
     } finally {
       setLoading(false);
@@ -101,8 +101,9 @@ function ResultsContent() {
     try {
       // Fetch recommendation for this result
       const response = await recommendationApi.getRecommendation();
-      if (response.success && response.data) {
-        setRecommendation(response.data);
+      const typedResponse = response as { success?: boolean; data?: RecommendationData };
+      if (typedResponse.success && typedResponse.data) {
+        setRecommendation(typedResponse.data);
       }
     } catch (err: unknown) {
       console.error('Error fetching recommendation:', err);

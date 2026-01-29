@@ -51,12 +51,14 @@ export default function AdminDashboard() {
           adminApi.getUsersWithData()
         ]);
 
-        if (statsResponse.success && statsResponse.data) {
-          setStats(statsResponse.data);
+        const typedStatsResponse = statsResponse as { success?: boolean; data?: AdminStats };
+        if (typedStatsResponse.success && typedStatsResponse.data) {
+          setStats(typedStatsResponse.data);
         }
 
-        if (usersResponse.success && usersResponse.data) {
-          setStudents(usersResponse.data);
+        const typedUsersResponse = usersResponse as { success?: boolean; data?: Student[] };
+        if (typedUsersResponse.success && typedUsersResponse.data) {
+          setStudents(typedUsersResponse.data);
         }
       } catch (err: unknown) {
         const error = err as { response?: { data?: { message?: string } } };

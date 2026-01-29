@@ -120,7 +120,7 @@ export default function SignupPage() {
       const err = error as { response?: { data?: { message?: string; errors?: Array<{ msg?: string }> } }; message?: string };
       const errorMessage = err.response?.data?.message || 
                           err.response?.data?.errors?.[0]?.msg ||
-                          error.message ||
+                          err.message ||
                           'Registration failed. Please try again.';
       setApiError(errorMessage);
     } finally {

@@ -60,8 +60,9 @@ export default function ProfilePage() {
       // Try to fetch full profile - but don't fail if it doesn't work
       try {
         const response = await profileApi.getProfile();
-        if (response.success && response.data.profile) {
-          setUser(response.data.profile);
+        const typedResponse = response as { success?: boolean; data?: { profile?: UserProfile } };
+        if (typedResponse.success && typedResponse.data?.profile) {
+          setUser(typedResponse.data.profile);
         }
       } catch {
         console.log('Profile API unavailable');
@@ -70,8 +71,9 @@ export default function ProfilePage() {
       // Try to fetch assessment results count - but don't fail if it doesn't work
       try {
         const resultsResponse = await assessmentApi.getAllResults();
-        if (resultsResponse.success && resultsResponse.data) {
-          setAssessmentCount(resultsResponse.data.length);
+        const typedResultsResponse = resultsResponse as { success?: boolean; data?: unknown[] };
+        if (typedResultsResponse.success && typedResultsResponse.data) {
+          setAssessmentCount(typedResultsResponse.data.length);
         }
       } catch {
         console.log('Assessment results API unavailable');
@@ -80,9 +82,10 @@ export default function ProfilePage() {
       // Try to fetch top careers from recommendations
       try {
         const recsResponse = await recommendationApi.getRecommendation();
-        if (recsResponse.success && recsResponse.data) {
-          const careers = recsResponse.data.recommendedCareers || [];
-          setTopCareers(careers.slice(0, 3));
+        const typedRecsResponse = recsResponse as { success?: boolean; data?: { recommendedCareers?: Array<{ career: string }> } };
+        if (typedRecsResponse.success && typedRecsResponse.data) {
+          const careers = typedRecsResponse.data.recommendedCareers || [];
+          setTopCareers(careers.slice(0, 3).map(c => c.career));
         }
       } catch {
         console.log('Recommendations API unavailable');

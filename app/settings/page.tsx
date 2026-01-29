@@ -80,8 +80,9 @@ export default function SettingsPage() {
       // Try to fetch full profile
       try {
         const profileResponse = await profileApi.getProfile();
-        if (profileResponse.success && profileResponse.data.profile) {
-          const profile = profileResponse.data.profile;
+        const typedProfileResponse = profileResponse as { success?: boolean; data?: { profile?: { firstName?: string; lastName?: string; email?: string; studentInfo?: unknown } } };
+        if (typedProfileResponse.success && typedProfileResponse.data?.profile) {
+          const profile = typedProfileResponse.data.profile;
           setFormData({
             firstName: profile.firstName || '',
             lastName: profile.lastName || '',
