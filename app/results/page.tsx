@@ -81,10 +81,10 @@ function ResultsContent() {
       if (response.success && response.data) {
         setAllResults(response.data);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error fetching results:', err);
-      
-      if (err.response?.status === 401) {
+      const error = err as { response?: { status?: number } };
+      if (error.response?.status === 401) {
         setError('Session expired. Please login again.');
         setTimeout(() => router.push('/auth/login'), 2000);
       } else {
@@ -104,7 +104,7 @@ function ResultsContent() {
       if (response.success && response.data) {
         setRecommendation(response.data);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error fetching recommendation:', err);
     } finally {
       setLoading(false);
@@ -130,9 +130,10 @@ function ResultsContent() {
       }
       
       setShowDeleteConfirm(null);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error deleting result:', err);
-      alert('Failed to delete result: ' + (err.response?.data?.message || err.message));
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
+      alert('Failed to delete result: ' + (error.response?.data?.message || error.message));
     }
   };
 

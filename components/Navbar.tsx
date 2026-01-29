@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ role?: string; firstName?: string; lastName?: string } | null>(null);
 
   useEffect(() => {
     // Check if user is logged in on mount and when pathname changes

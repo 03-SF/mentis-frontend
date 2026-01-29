@@ -94,7 +94,7 @@ export default function Home() {
               <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">
                 MENTISERA
               </a>
-              {' '}- Pakistan's Premier EdTech Solutions Provider
+              {' '}- Pakistan&apos;s Premier EdTech Solutions Provider
             </p>
             <p className="text-sm text-gray-500">
               © {new Date().getFullYear()} MENTIS AI. All rights reserved.

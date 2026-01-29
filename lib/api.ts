@@ -102,7 +102,7 @@ export const profileApi = {
     return response.data;
   },
 
-  updateProfile: async (data: any) => {
+  updateProfile: async (data: unknown) => {
     const response = await apiClient.put('/profile', data);
     return response.data;
   },
@@ -125,7 +125,7 @@ export const userApi = {
     return response.data;
   },
 
-  updateUser: async (id: string, data: any) => {
+  updateUser: async (id: string, data: unknown) => {
     const response = await apiClient.put(`/users/${id}`, data);
     return response.data;
   },
