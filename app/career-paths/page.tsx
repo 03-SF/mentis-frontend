@@ -120,7 +120,7 @@ export default function CareerPathsPage() {
       try {
         setLoading(true);
         const response = await recommendationApi.getRecommendation();
-        const typedResponse = response as { data?: { careers?: unknown[] } };
+        const typedResponse = response as { data?: { careers?: string[] } };
         if (typedResponse && typedResponse.data && typedResponse.data.careers) {
           setRecommendations(typedResponse.data.careers);
         }
