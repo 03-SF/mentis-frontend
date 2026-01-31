@@ -158,9 +158,9 @@ export default function AssessmentPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading assessment...</p>
         </div>
       </div>
@@ -169,7 +169,7 @@ export default function AssessmentPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-red-600 mb-4">
             <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,7 +180,7 @@ export default function AssessmentPage() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
           >
             Back to Dashboard
           </button>
@@ -191,7 +191,7 @@ export default function AssessmentPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-600">No questions available</p>
         </div>
@@ -200,10 +200,10 @@ export default function AssessmentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50">
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Gradient Header Banner */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
           <div className="relative">
@@ -215,7 +215,7 @@ export default function AssessmentPage() {
               </div>
             </div>
             <h1 className="text-4xl font-bold text-center mb-2">Psychometric Assessment</h1>
-            <p className="text-center text-blue-100">Answer honestly to discover your ideal career path</p>
+            <p className="text-center text-teal-100">Answer honestly to discover your ideal career path</p>
           </div>
         </div>
 
@@ -225,13 +225,13 @@ export default function AssessmentPage() {
             <span className="text-sm font-semibold text-gray-700">
               Question {currentIndex + 1} of {questions.length}
             </span>
-            <span className="text-sm font-semibold text-blue-600">
+            <span className="text-sm font-semibold text-teal-600">
               {Math.round(progress)}% Complete
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500 shadow-lg"
+              className="bg-gradient-to-r from-teal-600 to-cyan-600 h-3 rounded-full transition-all duration-500 shadow-lg"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
@@ -243,9 +243,9 @@ export default function AssessmentPage() {
         </div>
 
         {/* Question Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 border-2 border-transparent hover:border-blue-200 transition-all">
+        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 border-2 border-transparent hover:border-teal-200 transition-all">
           <div className="flex items-start mb-6">
-            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl p-3 mr-4 font-bold text-lg min-w-[3rem] text-center">
+            <div className="bg-gradient-to-br from-teal-500 to-cyan-500 text-white rounded-xl p-3 mr-4 font-bold text-lg min-w-[3rem] text-center">
               {currentIndex + 1}
             </div>
             <h2 className="text-xl font-semibold text-gray-800 leading-relaxed pt-2">
@@ -260,14 +260,14 @@ export default function AssessmentPage() {
                 onClick={() => handleOptionSelect(index)}
                 className={`w-full text-left p-5 rounded-xl border-2 transition-all transform hover:scale-[1.02] ${
                   selectedOptionIndex === index
-                    ? 'border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 shadow-lg'
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50 hover:shadow-md'
+                    ? 'border-teal-600 bg-gradient-to-r from-teal-50 to-cyan-50 shadow-lg'
+                    : 'border-gray-200 hover:border-teal-300 hover:bg-gray-50 hover:shadow-md'
                 }`}
               >
                 <div className="flex items-center">
                   <div className={`w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
                     selectedOptionIndex === index
-                      ? 'border-blue-600 bg-gradient-to-br from-blue-600 to-purple-600'
+                      ? 'border-teal-600 bg-gradient-to-br from-teal-600 to-cyan-600'
                       : 'border-gray-300'
                   }`}>
                     {selectedOptionIndex === index && (
@@ -277,7 +277,7 @@ export default function AssessmentPage() {
                     )}
                   </div>
                   <span className={`text-base ${
-                    selectedOptionIndex === index ? 'font-semibold text-blue-900' : 'text-gray-700'
+                    selectedOptionIndex === index ? 'font-semibold text-teal-900' : 'text-gray-700'
                   }`}>
                     {option.text}
                   </span>
@@ -295,7 +295,7 @@ export default function AssessmentPage() {
             className={`px-8 py-3 rounded-xl font-semibold transition-all transform ${
               currentIndex === 0
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50 hover:shadow-lg hover:scale-105'
+                : 'bg-white text-teal-600 border-2 border-teal-600 hover:bg-teal-50 hover:shadow-lg hover:scale-105'
             }`}
           >
             ← Previous
@@ -308,7 +308,7 @@ export default function AssessmentPage() {
               className={`px-8 py-3 rounded-xl font-semibold transition-all transform ${
                 selectedOptionIndex === undefined
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl hover:scale-105'
+                  : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white hover:shadow-xl hover:scale-105'
               }`}
             >
               Next →
@@ -337,9 +337,9 @@ export default function AssessmentPage() {
         </div>
 
         {/* Instructions */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-200 shadow-md">
+        <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-6 border-2 border-teal-200 shadow-md">
           <div className="flex items-start">
-            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white p-3 rounded-xl mr-4">
+            <div className="bg-gradient-to-br from-teal-500 to-cyan-500 text-white p-3 rounded-xl mr-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -348,11 +348,11 @@ export default function AssessmentPage() {
               <h4 className="font-bold text-gray-800 mb-2 text-lg">Assessment Tips</h4>
               <ul className="text-sm text-gray-700 space-y-2">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">✓</span>
+                  <span className="text-teal-600 mr-2">✓</span>
                   <span>Answer honestly based on your true preferences</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-purple-600 mr-2">✓</span>
+                  <span className="text-cyan-600 mr-2">✓</span>
                   <span>There are no right or wrong answers</span>
                 </li>
                 <li className="flex items-start">
@@ -374,15 +374,15 @@ export default function AssessmentPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-6 rounded-t-2xl">
               <h2 className="text-2xl font-bold mb-2">A Few Quick Questions</h2>
-              <p className="text-blue-100">Help us personalize your career recommendations</p>
+              <p className="text-teal-100">Help us personalize your career recommendations</p>
             </div>
 
             {/* Modal Body */}
             <div className="p-6 space-y-6">
               {/* Question 1 */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-5 border-2 border-teal-200">
                 <h3 className="font-semibold text-gray-800 mb-4 text-lg">
                   Are you comfortable with physical outdoor work?
                 </h3>
@@ -411,7 +411,7 @@ export default function AssessmentPage() {
               </div>
 
               {/* Question 2 */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-5 border-2 border-teal-200">
                 <h3 className="font-semibold text-gray-800 mb-4 text-lg">
                   Do you want a university degree?
                 </h3>
@@ -440,7 +440,7 @@ export default function AssessmentPage() {
               </div>
 
               {/* Question 3 */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-5 border-2 border-blue-200">
+              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-5 border-2 border-teal-200">
                 <h3 className="font-semibold text-gray-800 mb-4 text-lg">
                   Are you open to practical training programs (trade schools, diplomas) instead of university degrees?
                 </h3>

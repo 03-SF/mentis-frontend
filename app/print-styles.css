@@ -1,0 +1,63 @@
+/* Print styles for learning path */
+@media print {
+  body {
+    background: white !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Hide elements that shouldn't be printed */
+  nav,
+  footer,
+  button:not(.print-include),
+  .hover\:scale-105,
+  .hover\:shadow-xl {
+    display: none !important;
+  }
+
+  /* Optimize print layout */
+  .bg-gradient-to-br,
+  .bg-gradient-to-r {
+    background: white !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Keep important colors */
+  .bg-white,
+  .text-teal-700,
+  .text-cyan-700,
+  .text-gray-800,
+  .text-gray-700 {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Optimize spacing for print */
+  .rounded-2xl,
+  .rounded-xl {
+    border: 1px solid #e5e7eb;
+  }
+
+  /* Page breaks */
+  .print-page-break {
+    page-break-before: always;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure content fits on page */
+  .max-w-7xl {
+    max-width: 100%;
+  }
+
+  .shadow-xl,
+  .shadow-2xl,
+  .shadow-lg {
+    box-shadow: none !important;
+  }
+}

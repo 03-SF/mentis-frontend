@@ -192,20 +192,20 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading settings...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-500 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading settings...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 md:p-10 text-white mb-8 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 md:p-10 text-white mb-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
           <div className="relative z-10">
@@ -218,21 +218,21 @@ export default function SettingsPage() {
               </div>
               <div>
                 <h1 className="text-4xl font-bold mb-1">Settings</h1>
-                <p className="text-blue-100 text-lg">Manage your account preferences and security</p>
+                <p className="text-teal-100 text-lg">Manage your account preferences and security</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-t-2xl shadow-xl border-b-2 border-gray-100">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-t-2xl shadow-xl border-b-2 border-slate-700">
           <div className="flex overflow-x-auto">
             <button
               onClick={() => setActiveTab('account')}
               className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'account'
-                  ? 'text-blue-600'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  ? 'text-teal-400'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-slate-700/50'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -242,15 +242,15 @@ export default function SettingsPage() {
                 Account
               </div>
               {activeTab === 'account' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-lg"></div>
               )}
             </button>
             <button
               onClick={() => setActiveTab('profile')}
               className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'profile'
-                  ? 'text-blue-600'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  ? 'text-teal-400'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-slate-700/50'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -260,15 +260,15 @@ export default function SettingsPage() {
                 Profile
               </div>
               {activeTab === 'profile' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-lg"></div>
               )}
             </button>
             <button
               onClick={() => setActiveTab('learning')}
               className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'learning'
-                  ? 'text-blue-600'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  ? 'text-teal-400'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-slate-700/50'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -278,15 +278,15 @@ export default function SettingsPage() {
                 Preferences
               </div>
               {activeTab === 'learning' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-lg"></div>
               )}
             </button>
             <button
               onClick={() => setActiveTab('privacy')}
               className={`px-8 py-5 font-semibold transition-all relative ${
                 activeTab === 'privacy'
-                  ? 'text-blue-600'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  ? 'text-teal-400'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-slate-700/50'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -296,14 +296,14 @@ export default function SettingsPage() {
                 Privacy
               </div>
               {activeTab === 'privacy' && (
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-lg"></div>
               )}
             </button>
           </div>
         </div>
 
         {/* Tab Content */}
-        <div className="bg-white rounded-b-2xl shadow-xl p-8 md:p-10 border border-gray-100 border-t-0">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-b-2xl shadow-xl p-8 md:p-10 border border-slate-700 border-t-0">
           {/* Alerts */}
           {error && (
             <div className="mb-6 bg-red-50 border-2 border-red-200 text-red-700 px-6 py-4 rounded-xl flex items-start gap-3">
@@ -328,17 +328,17 @@ export default function SettingsPage() {
               {/* Basic Info */}
               <div>
                 <div className="flex items-center mb-6">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl mr-4">
+                  <div className="bg-gradient-to-br from-teal-500 to-cyan-500 p-3 rounded-xl mr-4">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-800">Basic Information</h2>
+                  <h2 className="text-2xl font-bold text-white">Basic Information</h2>
                 </div>
                 <form onSubmit={handleSaveBasicInfo} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">
                         First Name
                       </label>
                       <input
@@ -346,12 +346,12 @@ export default function SettingsPage() {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleBasicInfoChange}
-                        className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-5 py-3 bg-slate-700/50 border-2 border-slate-600 text-white rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <label className="block text-sm font-semibold text-gray-300 mb-3">
                         Last Name
                       </label>
                       <input
@@ -359,19 +359,19 @@ export default function SettingsPage() {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleBasicInfoChange}
-                        className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-5 py-3 bg-slate-700/50 border-2 border-slate-600 text-white rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      Email <span className="text-gray-400 text-xs font-normal">(read-only)</span>
+                    <label className="block text-sm font-semibold text-gray-300 mb-3">
+                      Email <span className="text-gray-500 text-xs font-normal">(read-only)</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
-                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl bg-gray-50 cursor-not-allowed"
+                      className="w-full px-5 py-3 bg-slate-900/50 border-2 border-slate-600 text-gray-400 rounded-xl cursor-not-allowed"
                       disabled
                     />
                   </div>
@@ -386,18 +386,18 @@ export default function SettingsPage() {
               </div>
 
               {/* Change Password */}
-              <div className="border-t-2 border-gray-100 pt-10">
+              <div className="border-t-2 border-slate-700 pt-10">
                 <div className="flex items-center mb-6">
-                  <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-xl mr-4">
+                  <div className="bg-gradient-to-br from-cyan-500 to-teal-500 p-3 rounded-xl mr-4">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-800">Change Password</h2>
+                  <h2 className="text-2xl font-bold text-white">Change Password</h2>
                 </div>
                 <form onSubmit={handleChangePassword} className="space-y-6 max-w-2xl">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-gray-300 mb-3">
                       Current Password
                     </label>
                     <input
@@ -405,12 +405,12 @@ export default function SettingsPage() {
                       name="currentPassword"
                       value={passwordData.currentPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-5 py-3 bg-slate-700/50 border-2 border-slate-600 text-white rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-gray-300 mb-3">
                       New Password
                     </label>
                     <input
@@ -418,13 +418,13 @@ export default function SettingsPage() {
                       name="newPassword"
                       value={passwordData.newPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-5 py-3 bg-slate-700/50 border-2 border-slate-600 text-white rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                       minLength={8}
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-gray-300 mb-3">
                       Confirm New Password
                     </label>
                     <input
@@ -432,14 +432,14 @@ export default function SettingsPage() {
                       name="confirmPassword"
                       value={passwordData.confirmPassword}
                       onChange={handlePasswordChange}
-                      className="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-5 py-3 bg-slate-700/50 border-2 border-slate-600 text-white rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={saving}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+                    className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-teal-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
                   >
                     {saving ? 'Updating...' : 'Update Password'}
                   </button>
@@ -447,17 +447,17 @@ export default function SettingsPage() {
               </div>
 
               {/* Delete Account */}
-              <div className="border-t-2 border-gray-100 pt-10">
+              <div className="border-t-2 border-slate-700 pt-10">
                 <div className="flex items-center mb-6">
                   <div className="bg-gradient-to-br from-red-500 to-red-600 p-3 rounded-xl mr-4">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-red-600">Danger Zone</h2>
+                  <h2 className="text-2xl font-bold text-red-500">Danger Zone</h2>
                 </div>
-                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-                  <p className="text-gray-700 mb-6 text-lg">
+                <div className="bg-red-900/20 border-2 border-red-500/30 rounded-xl p-6">
+                  <p className="text-gray-300 mb-6 text-lg">
                     Once you delete your account, there is no going back. This action is permanent and all your data will be lost.
                   </p>
                   {showDeleteConfirm ? (
@@ -470,7 +470,7 @@ export default function SettingsPage() {
                       </button>
                       <button
                         onClick={() => setShowDeleteConfirm(false)}
-                        className="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                        className="bg-slate-700 text-gray-200 px-6 py-3 rounded-xl font-semibold hover:bg-slate-600 transition-all"
                       >
                         Cancel
                       </button>
@@ -491,12 +491,12 @@ export default function SettingsPage() {
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div className="space-y-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Education Information</h2>
+              <h2 className="text-xl font-bold text-white mb-4">Education Information</h2>
               <div className="text-center py-8">
-                <svg className="w-16 h-16 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-16 h-16 text-gray-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                <p className="text-gray-600 mb-4">Complete your profile during onboarding or assessment</p>
+                <p className="text-gray-400 mb-4">Complete your profile during onboarding or assessment</p>
               </div>
             </div>
           )}
@@ -505,65 +505,65 @@ export default function SettingsPage() {
           {activeTab === 'learning' && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Learning Style</h2>
+                <h2 className="text-xl font-bold text-white mb-4">Learning Style</h2>
                 <div className="space-y-3">
-                  <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <label className="flex items-center p-4 bg-slate-700/30 border border-slate-600 rounded-lg cursor-pointer hover:bg-slate-700/50 transition-all">
                     <input
                       type="radio"
                       name="learningStyle"
                       value="academic"
                       checked={preferences.learningStyle === 'academic'}
                       onChange={(e) => setPreferences({ ...preferences, learningStyle: e.target.value })}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-teal-500"
                     />
                     <div className="ml-3">
-                      <p className="font-medium text-gray-800">Academic & Theoretical</p>
-                      <p className="text-sm text-gray-600">Focus on theory, research, and formal education</p>
+                      <p className="font-medium text-white">Academic & Theoretical</p>
+                      <p className="text-sm text-gray-400">Focus on theory, research, and formal education</p>
                     </div>
                   </label>
-                  <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <label className="flex items-center p-4 bg-slate-700/30 border border-slate-600 rounded-lg cursor-pointer hover:bg-slate-700/50 transition-all">
                     <input
                       type="radio"
                       name="learningStyle"
                       value="practical"
                       checked={preferences.learningStyle === 'practical'}
                       onChange={(e) => setPreferences({ ...preferences, learningStyle: e.target.value })}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-teal-500"
                     />
                     <div className="ml-3">
-                      <p className="font-medium text-gray-800">Practical & Hands-On</p>
-                      <p className="text-sm text-gray-600">Prefer vocational training and real-world experience</p>
+                      <p className="font-medium text-white">Practical & Hands-On</p>
+                      <p className="text-sm text-gray-400">Prefer vocational training and real-world experience</p>
                     </div>
                   </label>
-                  <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <label className="flex items-center p-4 bg-slate-700/30 border border-slate-600 rounded-lg cursor-pointer hover:bg-slate-700/50 transition-all">
                     <input
                       type="radio"
                       name="learningStyle"
                       value="balanced"
                       checked={preferences.learningStyle === 'balanced'}
                       onChange={(e) => setPreferences({ ...preferences, learningStyle: e.target.value })}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-teal-500"
                     />
                     <div className="ml-3">
-                      <p className="font-medium text-gray-800">Balanced Approach</p>
-                      <p className="text-sm text-gray-600">Mix of academic study and practical application</p>
+                      <p className="font-medium text-white">Balanced Approach</p>
+                      <p className="text-sm text-gray-400">Mix of academic study and practical application</p>
                     </div>
                   </label>
                 </div>
               </div>
 
-              <div className="border-t pt-8">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Notification Preferences</h2>
+              <div className="border-t border-slate-700 pt-8">
+                <h2 className="text-xl font-bold text-white mb-4">Notification Preferences</h2>
                 <div className="space-y-4">
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-800">Email Notifications</p>
-                      <p className="text-sm text-gray-600">Receive updates about your progress via email</p>
+                      <p className="font-medium text-white">Email Notifications</p>
+                      <p className="text-sm text-gray-400">Receive updates about your progress via email</p>
                     </div>
                     <button
                       onClick={() => togglePreference('emailNotifications')}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-                        preferences.emailNotifications ? 'bg-blue-600' : 'bg-gray-300'
+                        preferences.emailNotifications ? 'bg-teal-500' : 'bg-slate-600'
                       }`}
                     >
                       <span
@@ -573,15 +573,15 @@ export default function SettingsPage() {
                       />
                     </button>
                   </label>
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-800">Dashboard Reminders</p>
-                      <p className="text-sm text-gray-600">Get reminders to complete assessments and learning paths</p>
+                      <p className="font-medium text-white">Dashboard Reminders</p>
+                      <p className="text-sm text-gray-400">Get reminders to complete assessments and learning paths</p>
                     </div>
                     <button
                       onClick={() => togglePreference('dashboardReminders')}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-                        preferences.dashboardReminders ? 'bg-blue-600' : 'bg-gray-300'
+                        preferences.dashboardReminders ? 'bg-teal-500' : 'bg-slate-600'
                       }`}
                     >
                       <span
@@ -600,27 +600,27 @@ export default function SettingsPage() {
           {activeTab === 'privacy' && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Data & Privacy</h2>
+                <h2 className="text-xl font-bold text-white mb-4">Data & Privacy</h2>
                 <div className="space-y-4">
-                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h3 className="font-medium text-gray-800 mb-2">How We Use Your Data</h3>
-                    <p className="text-sm text-gray-700">
+                  <div className="p-4 bg-teal-900/20 border border-teal-500/30 rounded-lg">
+                    <h3 className="font-medium text-white mb-2">How We Use Your Data</h3>
+                    <p className="text-sm text-gray-300">
                       We collect and process your data to provide personalized career recommendations and learning paths. 
                       Your assessment results are used to generate AI-powered insights tailored to your profile.
                     </p>
                   </div>
-                  <div className="p-4 bg-gray-50 rounded-lg">
-                    <h3 className="font-medium text-gray-800 mb-2">Data Retention</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                  <div className="p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
+                    <h3 className="font-medium text-white mb-2">Data Retention</h3>
+                    <p className="text-sm text-gray-300 mb-3">
                       Your data is stored securely and retained as long as your account is active. You can request data deletion at any time.
                     </p>
-                    <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <button className="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
                       Download My Data →
                     </button>
                   </div>
-                  <div className="p-4 bg-gray-50 rounded-lg">
-                    <h3 className="font-medium text-gray-800 mb-2">Third-Party Services</h3>
-                    <p className="text-sm text-gray-700">
+                  <div className="p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
+                    <h3 className="font-medium text-white mb-2">Third-Party Services</h3>
+                    <p className="text-sm text-gray-300">
                       We use Google Gemini AI for generating learning paths and career recommendations. 
                       No personally identifiable information is shared with third parties without your consent.
                     </p>
@@ -628,16 +628,16 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="border-t pt-8">
-                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
-                  <svg className="w-6 h-6 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="border-t border-slate-700 pt-8">
+                <div className="flex items-start gap-4 p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
+                  <svg className="w-6 h-6 text-teal-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                   <div>
-                    <h3 className="font-medium text-gray-800 mb-1">Your Data is Protected</h3>
-                    <p className="text-sm text-gray-700">
+                    <h3 className="font-medium text-white mb-1">Your Data is Protected</h3>
+                    <p className="text-sm text-gray-300">
                       We use industry-standard encryption and security practices to protect your personal information. 
-                      For more details, read our <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>.
+                      For more details, read our <a href="/privacy-policy" className="text-teal-400 hover:text-teal-300 underline">Privacy Policy</a>.
                     </p>
                   </div>
                 </div>

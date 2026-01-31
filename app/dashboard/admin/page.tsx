@@ -74,9 +74,9 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading admin dashboard...</p>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-red-600 mb-4">
             <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
           >
             Back to Dashboard
           </button>
@@ -106,10 +106,10 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Gradient Header Banner */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 mb-8 text-white">
           <div className="flex items-center space-x-4">
             <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
               <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-              <p className="text-blue-100">Monitor system metrics and manage users</p>
+              <p className="text-teal-100">Monitor system metrics and manage users</p>
             </div>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
           {/* Total Users */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-lg">
+              <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-3 rounded-xl shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
           {/* Career Assessments */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all">
             <div className="flex items-center justify-between mb-4">
-              <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-xl shadow-lg">
+              <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 p-3 rounded-xl shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
@@ -209,7 +209,7 @@ export default function AdminDashboard() {
             <div className="space-y-4">
               {stats.topCareers.map((career, index) => (
                 <div key={index} className="flex items-center">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-white font-bold mr-4 shadow-lg">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 text-white font-bold mr-4 shadow-lg">
                     {index + 1}
                   </div>
                   <div className="flex-1">
@@ -219,7 +219,7 @@ export default function AdminDashboard() {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div 
-                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-2.5 rounded-full transition-all"
+                        className="bg-gradient-to-r from-teal-500 to-cyan-500 h-2.5 rounded-full transition-all"
                         style={{ width: `${(career.count / (stats.topCareers[0]?.count || 1)) * 100}%` }}
                       ></div>
                     </div>
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
           <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
             <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-2 rounded-lg mr-3">
+              <div className="bg-gradient-to-br from-teal-500 to-cyan-500 p-2 rounded-lg mr-3">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
@@ -284,11 +284,11 @@ export default function AdminDashboard() {
                       : nameParts[0].charAt(0);
                     
                     return (
-                    <tr key={student._id} className="hover:bg-blue-50/30 transition-colors">
+                    <tr key={student._id} className="hover:bg-teal-50/30 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg">
+                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-lg">
                               {initials}
                             </div>
                           </div>
@@ -324,7 +324,7 @@ export default function AdminDashboard() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800">
+                        <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gradient-to-r from-teal-100 to-cyan-100 text-teal-800">
                           {student.assessmentCount} {student.assessmentCount === 1 ? 'assessment' : 'assessments'}
                         </span>
                       </td>
@@ -343,7 +343,7 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <p className="text-center text-sm text-gray-500">
             Admin Dashboard • Powered by{' '}
-            <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+            <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">
               MENTISERA
             </a>
           </p>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import '../print-styles.css';
 
 interface SkillsGrouped {
   core_skills?: string[];
@@ -121,6 +122,10 @@ function LearningPathContent() {
     fetchLearningPath();
   }, [career, router]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   const getPathIcon = (type: string) => {
     if (type.includes('Academic')) {
       return (
@@ -162,15 +167,15 @@ function LearningPathContent() {
     switch (colorType) {
       case 'academic':
         return {
-          header: 'bg-gradient-to-r from-blue-500 to-blue-600',
-          badge: 'bg-blue-100 text-blue-600',
-          step: 'bg-blue-100 text-blue-600'
+          header: 'bg-gradient-to-r from-teal-500 to-teal-600',
+          badge: 'bg-teal-100 text-teal-600',
+          step: 'bg-teal-100 text-teal-600'
         };
       case 'skill':
         return {
-          header: 'bg-gradient-to-r from-purple-500 to-purple-600',
-          badge: 'bg-purple-100 text-purple-600',
-          step: 'bg-purple-100 text-purple-600'
+          header: 'bg-gradient-to-r from-cyan-500 to-cyan-600',
+          badge: 'bg-cyan-100 text-cyan-600',
+          step: 'bg-cyan-100 text-cyan-600'
         };
       case 'hybrid':
         return {
@@ -189,9 +194,9 @@ function LearningPathContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Generating your personalized learning path...</p>
           <p className="text-sm text-gray-500 mt-2">This may take a few moments</p>
         </div>
@@ -201,7 +206,7 @@ function LearningPathContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-red-600 mb-4">
             <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +217,7 @@ function LearningPathContent() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.back()}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
           >
             Go Back
           </button>
@@ -226,10 +231,10 @@ function LearningPathContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50">
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Gradient Header Banner */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
           <div className="relative">
@@ -243,18 +248,29 @@ function LearningPathContent() {
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-2">Your Personalized Learning Path</h1>
               <div className="inline-block bg-white px-6 py-3 rounded-full shadow-lg mt-4">
-                <p className="text-xl font-semibold text-blue-700">{learningPathData.career}</p>
+                <p className="text-xl font-semibold text-teal-700">{learningPathData.career}</p>
+              </div>
+              <div className="mt-6">
+                <button
+                  onClick={handlePrint}
+                  className="bg-white text-teal-700 font-semibold py-3 px-8 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center mx-auto no-print"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  </svg>
+                  Print Learning Path
+                </button>
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-4 text-sm mt-6">
               <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-md">
-                <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <svg className="w-5 h-5 mr-2 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span className="font-medium text-gray-700">{learningPathData.userLevel}</span>
               </div>
               <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-md">
-                <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                <svg className="w-5 h-5 mr-2 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span className="font-medium text-gray-700">{learningPathData.countryContext}</span>
@@ -267,18 +283,18 @@ function LearningPathContent() {
               </div>
             )}
             {learningPathData.note && (
-              <div className="mt-4 bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-sm shadow-sm">
-                <strong className="block mb-1 text-blue-800">Note:</strong>
-                <p className="text-blue-700">{learningPathData.note}</p>
+              <div className="mt-4 bg-teal-50 border-2 border-teal-200 rounded-lg p-4 text-sm shadow-sm">
+                <strong className="block mb-1 text-teal-800">Note:</strong>
+                <p className="text-teal-700">{learningPathData.note}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Info Banner */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 mb-8 shadow-md">
+        <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-xl p-6 mb-8 shadow-md">
           <div className="flex items-start">
-            <div className="bg-gradient-to-br from-blue-500 to-purple-500 text-white p-3 rounded-xl mr-4">
+            <div className="bg-gradient-to-br from-teal-500 to-cyan-500 text-white p-3 rounded-xl mr-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -286,9 +302,9 @@ function LearningPathContent() {
             <div>
               <h3 className="font-bold text-gray-800 mb-2 text-lg">Multiple Pathways Available</h3>
               <p className="text-gray-700 text-sm leading-relaxed">
-                We&apos;ve generated <span className="font-bold text-blue-600">{learningPathData.paths.length}</span> different pathways to help you achieve your career goal. 
+                We&apos;ve generated <span className="font-bold text-teal-600">{learningPathData.paths.length}</span> different pathways to help you achieve your career goal. 
                 Each path is equally valid — choose the one that fits your circumstances, resources, and preferences best.
-                <strong className="block mt-3 text-purple-700">These are advisory suggestions, not ranked recommendations.</strong>
+                <strong className="block mt-3 text-cyan-700">These are advisory suggestions, not ranked recommendations.</strong>
               </p>
             </div>
           </div>
@@ -300,14 +316,14 @@ function LearningPathContent() {
             const colorType = getPathColor(path.path_name);
             const colors = getColorClasses(colorType);
             return (
-              <div key={index} className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-100 hover:border-blue-200 hover:shadow-2xl transition-all transform hover:scale-[1.01]">
+              <div key={index} className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-100 hover:border-teal-200 hover:shadow-2xl transition-all transform hover:scale-[1.01]">
                 {/* Path Header */}
                 <div className={`${colors.header} p-8 text-white relative overflow-hidden`}>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white opacity-10 rounded-full -mr-20 -mt-20"></div>
                   <div className="flex items-start justify-between relative">
                     <div className="flex items-start flex-1">
                       <div className="bg-white p-3 rounded-xl mr-4 shadow-lg flex-shrink-0">
-                        <div className="text-blue-600">
+                        <div className="text-teal-600">
                           {getPathIcon(path.path_name)}
                         </div>
                       </div>
@@ -316,12 +332,12 @@ function LearningPathContent() {
                         <p className="text-sm opacity-90 leading-relaxed mb-3">{path.summary}</p>
                         <div className="flex flex-wrap gap-3 text-xs font-medium">
                           {path.intermediate_duration && (
-                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-blue-700">
+                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-teal-700">
                               <span className="mr-1.5">📚</span> Intermediate: {path.intermediate_duration}
                             </span>
                           )}
                           {path.degree_duration && (
-                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-purple-700">
+                            <span className="bg-white px-3 py-1.5 rounded-full shadow-md flex items-center text-cyan-700">
                               <span className="mr-1.5">🎓</span> Degree: {path.degree_duration}
                             </span>
                           )}
@@ -347,7 +363,7 @@ function LearningPathContent() {
                       <ul className="space-y-2 ml-10">
                         {path.intermediate_phase.map((phase, idx) => (
                           <li key={idx} className="text-gray-700 flex items-start">
-                            <span className="text-blue-500 mr-2 mt-1">•</span>
+                            <span className="text-teal-500 mr-2 mt-1">•</span>
                             <span>{phase}</span>
                           </li>
                         ))}
@@ -364,7 +380,7 @@ function LearningPathContent() {
                       <ul className="space-y-2 ml-10">
                         {path.degree_or_diploma_options.map((option, idx) => (
                           <li key={idx} className="text-gray-700 flex items-start">
-                            <span className="text-purple-500 mr-2 mt-1">•</span>
+                            <span className="text-cyan-500 mr-2 mt-1">•</span>
                             <span>{option}</span>
                           </li>
                         ))}
@@ -457,10 +473,10 @@ function LearningPathContent() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex justify-center no-print">
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-10 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-3 px-10 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -476,9 +492,9 @@ function LearningPathContent() {
 export default function LearningPathPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-purple-50 to-pink-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading learning path...</p>
         </div>
       </div>

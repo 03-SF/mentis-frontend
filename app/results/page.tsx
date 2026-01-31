@@ -140,9 +140,9 @@ function ResultsContent() {
 
   if (loading && allResults.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your results...</p>
         </div>
       </div>
@@ -151,7 +151,7 @@ function ResultsContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-red-600 mb-4">
             <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,13 +163,13 @@ function ResultsContent() {
           <div className="space-x-3">
             <button
               onClick={() => router.push('/assessment')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
+              className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
             >
               Take Assessment
             </button>
             <button
               onClick={() => router.push('/dashboard')}
-              className="bg-white text-blue-600 border-2 border-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-blue-50 transition"
+              className="bg-white text-teal-600 border-2 border-teal-600 font-semibold py-2 px-6 rounded-lg hover:bg-teal-50 transition"
             >
               Dashboard
             </button>
@@ -181,9 +181,9 @@ function ResultsContent() {
 
   if (allResults.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
-          <div className="text-blue-600 mb-4">
+          <div className="text-teal-600 mb-4">
             <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
@@ -192,7 +192,7 @@ function ResultsContent() {
           <p className="text-gray-600 mb-6">You haven&apos;t taken any assessments yet. Take your first assessment to discover your career path!</p>
           <button
             onClick={() => router.push('/assessment')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition"
           >
             Take Assessment
           </button>
@@ -208,10 +208,10 @@ function ResultsContent() {
       .map(entry => entry[0]) : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50">
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Gradient Header Banner */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
           <div className="relative">
@@ -223,7 +223,7 @@ function ResultsContent() {
               </div>
             </div>
             <h1 className="text-4xl font-bold text-center mb-2">Your Assessment Results</h1>
-            <p className="text-center text-blue-100">View career insights matching your strengths</p>
+            <p className="text-center text-teal-100">View career insights matching your strengths</p>
             <div className="flex justify-center mt-6">
               <div className="px-6 py-2">
                 <span className="text-sm font-semibold text-white">Total Results: {allResults.length}</span>
@@ -238,7 +238,7 @@ function ResultsContent() {
             <div className="bg-white rounded-2xl shadow-xl p-6 border-2 border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-gray-800">All Results</h2>
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                   {allResults.length}
                 </span>
               </div>
@@ -248,8 +248,8 @@ function ResultsContent() {
                     key={result._id}
                     className={`p-4 rounded-xl border-2 cursor-pointer transition-all transform hover:scale-[1.02] ${
                       selectedResult?._id === result._id
-                        ? 'border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 shadow-md'
-                        : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50 hover:shadow-sm'
+                        ? 'border-teal-600 bg-gradient-to-r from-teal-50 to-cyan-50 shadow-md'
+                        : 'border-gray-200 hover:border-teal-300 hover:bg-gray-50 hover:shadow-sm'
                     }`}
                     onClick={() => handleSelectResult(result)}
                   >
@@ -268,10 +268,10 @@ function ResultsContent() {
                     </div>
                     <div className="flex justify-between items-center text-xs">
                       <div className="flex gap-2">
-                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded font-medium">
+                        <span className="bg-teal-100 text-teal-700 px-2 py-1 rounded font-medium">
                           A:{result.normalizedScores.A}%
                         </span>
-                        <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded font-medium">
+                        <span className="bg-cyan-100 text-cyan-700 px-2 py-1 rounded font-medium">
                           C:{result.normalizedScores.C}%
                         </span>
                       </div>
@@ -299,7 +299,7 @@ function ResultsContent() {
             {selectedResult ? (
               <>
                 {/* Result Info Banner */}
-                <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-blue-600 hover:shadow-xl transition">
+                <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border-l-4 border-teal-600 hover:shadow-xl transition">
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-sm text-gray-600 font-medium">Assessment taken on</p>
@@ -324,7 +324,7 @@ function ResultsContent() {
                 </div>
 
                 {/* Top Strengths */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 text-white mb-6">
+                <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl shadow-xl p-8 text-white mb-6">
                   <h2 className="text-2xl font-bold mb-4">Your Top Strengths</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {topCategories.map((cat, index) => {
@@ -335,7 +335,7 @@ function ResultsContent() {
                             <span className="text-3xl font-bold mr-3">#{index + 1}</span>
                             <h3 className="text-xl font-bold">{info.name}</h3>
                           </div>
-                          <p className="text-blue-100 text-sm">{info.description}</p>
+                          <p className="text-teal-100 text-sm">{info.description}</p>
                           <div className="mt-3">
                             <div className="text-2xl font-bold">{selectedResult.normalizedScores[cat as keyof Scores]}%</div>
                           </div>
@@ -348,7 +348,7 @@ function ResultsContent() {
                 {/* Score Breakdown */}
                 <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 border-2 border-gray-100">
                   <div className="flex items-center mb-6">
-                    <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-3 rounded-xl mr-3">
+                    <div className="bg-gradient-to-br from-teal-500 to-cyan-500 p-3 rounded-xl mr-3">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
@@ -367,7 +367,7 @@ function ResultsContent() {
                                 {info.name}
                               </span>
                               {isTop && (
-                                <span className="ml-3 text-xs bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full font-semibold">
+                                <span className="ml-3 text-xs bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-3 py-1 rounded-full font-semibold">
                                   ★ Top Strength
                                 </span>
                               )}
@@ -407,18 +407,18 @@ function ResultsContent() {
                         {recommendation.recommendedCareers.slice(0, 5).map((career, index) => (
                           <div
                             key={index}
-                            className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all transform hover:scale-[1.02]"
+                            className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border-2 border-teal-100 hover:border-teal-300 hover:shadow-xl transition-all transform hover:scale-[1.02]"
                           >
                             <div className="flex items-center justify-between flex-wrap gap-4">
                               <div className="flex items-center flex-1 min-w-0">
-                                <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-xl w-12 h-12 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg shadow-lg">
+                                <div className="bg-gradient-to-br from-teal-600 to-cyan-600 text-white rounded-xl w-12 h-12 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg shadow-lg">
                                   #{index + 1}
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-800 truncate">{career}</h3>
                               </div>
                               <button
                                 onClick={() => router.push(`/learning-path?career=${encodeURIComponent(career)}`)}
-                                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition-all transform hover:scale-105 flex items-center whitespace-nowrap"
+                                className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg transition-all transform hover:scale-105 flex items-center whitespace-nowrap"
                               >
                                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
@@ -440,8 +440,8 @@ function ResultsContent() {
 
                     {/* Show more careers note */}
                     {recommendation.recommendedCareers && recommendation.recommendedCareers.length > 5 && (
-                      <div className="mt-6 text-center bg-blue-50 rounded-lg p-4">
-                        <p className="text-sm text-blue-700 font-medium">
+                      <div className="mt-6 text-center bg-teal-50 rounded-lg p-4">
+                        <p className="text-sm text-teal-700 font-medium">
                           Showing top 5 of {recommendation.recommendedCareers.length} careers matching your strengths
                         </p>
                       </div>
@@ -461,7 +461,7 @@ function ResultsContent() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-10 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center"
+            className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-3 px-10 rounded-xl hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -470,7 +470,7 @@ function ResultsContent() {
           </button>
           <button
             onClick={() => router.push('/assessment')}
-            className="bg-white text-blue-600 border-2 border-blue-600 font-semibold py-3 px-10 rounded-xl hover:bg-blue-50 hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center"
+            className="bg-white text-teal-600 border-2 border-teal-600 font-semibold py-3 px-10 rounded-xl hover:bg-teal-50 hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -516,7 +516,7 @@ function ResultsContent() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <p className="text-center text-sm text-gray-500">
             Results are based on psychometric analysis • Powered by{' '}
-            <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+            <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">
               MENTISERA
             </a>
           </p>
@@ -531,7 +531,7 @@ export default function ResultsPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-teal-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading results...</p>
         </div>
       </div>

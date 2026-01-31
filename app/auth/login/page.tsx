@@ -121,16 +121,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              MENTIS AI
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              MENTIS
             </h1>
           </Link>
-          <p className="text-gray-600 mt-2">Career Co-Pilot for Pakistani Students</p>
+          <p className="text-gray-300 mt-2">Career Co-Pilot for Pakistani Students</p>
         </div>
 
         {/* Login Card */}
@@ -184,11 +184,11 @@ export default function LoginPage() {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
                 />
-                <span className="ml-2 text-gray-600">Remember me</span>
+                <span className="text-sm text-gray-700">Remember me</span>
               </label>
-              <Link href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="#" className="text-teal-600 hover:text-teal-700 font-medium">
                 Forgot password?
               </Link>
             </div>
@@ -196,7 +196,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-lg hover:shadow-lg transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold py-3 rounded-lg hover:shadow-lg transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -204,7 +204,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-semibold">
+            <Link href="/auth/signup" className="text-teal-600 hover:text-teal-700 font-semibold">
               Sign up
             </Link>
           </div>
