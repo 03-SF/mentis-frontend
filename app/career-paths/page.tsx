@@ -120,14 +120,16 @@ export default function CareerPathsPage() {
       try {
         setLoading(true);
         const response = await recommendationApi.getRecommendation();
-        if (response && response.data && response.data.careers) {
-          setRecommendations(response.data.careers);
+        const typedResponse = response as { data?: { careers?: unknown[] } };
+        if (typedResponse && typedResponse.data && typedResponse.data.careers) {
+          setRecommendations(typedResponse.data.careers);
         }
 
         // Fetch assessment result for score
         const resultResponse = await assessmentApi.getResult();
-        if (resultResponse && resultResponse.data) {
-          setAssessmentScore(resultResponse.data.totalScore);
+        const typedResultResponse = resultResponse as { data?: { totalScore?: number } };
+        if (typedResultResponse && typedResultResponse.data) {
+          setAssessmentScore(typedResultResponse.data.totalScore || null);
         }
       } catch (error) {
         console.error('Error fetching recommendations:', error);
