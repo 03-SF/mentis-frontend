@@ -1,8 +1,10 @@
+import Footer from '@/components/Footer';
+
 export default function TermsAndConditions() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="max-w-4xl mx-auto px-4 py-20">
-        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
           Terms of Use
         </h1>
         <p className="text-gray-400 mb-12">Last Updated: August 1, 2024</p>
@@ -89,6 +91,8 @@ export default function TermsAndConditions() {
           </section>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

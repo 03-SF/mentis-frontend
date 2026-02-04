@@ -1,13 +1,14 @@
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 export default function ForStudents() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
       <section className="pt-20 pb-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
               Stop Guessing. Start Building.
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
@@ -15,7 +16,7 @@ export default function ForStudents() {
             </p>
             <Link
               href="/assessment"
-              className="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all font-semibold"
+              className="inline-block px-8 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-lg hover:from-teal-700 hover:to-cyan-700 transition-all font-semibold"
             >
               Start Your Career Analysis
             </Link>
@@ -100,6 +101,8 @@ export default function ForStudents() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

@@ -1,10 +1,12 @@
+import Footer from '@/components/Footer';
+
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
       <section className="pt-20 pb-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
             About MENTIS: Our Purpose and Principles
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -96,6 +98,8 @@ export default function About() {
           </p>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
