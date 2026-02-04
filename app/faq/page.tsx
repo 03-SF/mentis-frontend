@@ -1,93 +1,45 @@
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const faqs: FAQItem[] = [
+  {
+    question: "What is MENTIS?",
+    answer: "MENTIS is an AI-powered career guidance platform that combines psychometric assessment with real labor market data to provide personalized career recommendations and actionable roadmaps."
+  },
+  {
+    question: "Is this just another psychometric test?",
+    answer: "No. While we do use psychometric assessments to understand your strengths and interests, MENTIS goes beyond traditional tests by integrating real-time market data, salary insights, and skill-gap analysis to provide actionable career pathways."
+  },
+  {
+    question: "How accurate are the results?",
+    answer: "Our recommendations are data-driven and based on validated psychometric models combined with current labor market trends. However, they should be used as guidance alongside your own research and professional advice, not as absolute predictions."
+  },
+  {
+    question: "Who should use MENTIS?",
+    answer: "MENTIS is designed for students exploring career options, professionals considering career transitions, parents seeking to guide their children, and counselors looking for data-driven tools to support their guidance work."
+  },
+  {
+    question: "Is my data safe?",
+    answer: "Yes. We take data privacy seriously. All personal information is encrypted and securely stored on cloud infrastructure. We do not sell your data to third parties. For institutional partners, only anonymized aggregate data is shared with explicit consent."
+  },
+  {
+    question: "How is this different from other career tests?",
+    answer: "MENTIS uniquely integrates psychometric assessment with real-time labor market data and provides personalized 90-day roadmaps with specific skills to learn, resources to use, and steps to take—not just career labels."
+  },
+  {
+    question: "Do I need to pay to use MENTIS?",
+    answer: "We offer a free trial to explore basic features. Premium features, including detailed roadmaps and ongoing market insights, require a subscription. Contact us for institutional pricing."
+  }
+];
+
 export default function FAQ() {
-  const faqs = [
-    {
-      category: 'General',
-      questions: [
-        {
-          q: 'What is MENTIS?',
-          a: 'MENTIS is an AI-powered career guidance platform that helps students discover suitable career paths through psychometric assessment and personalized recommendations.',
-        },
-        {
-          q: 'How does MENTIS work?',
-          a: 'You take a comprehensive assessment that evaluates your interests, aptitudes, and preferences. Our AI analyzes your responses and provides personalized career recommendations with detailed information about each path.',
-        },
-        {
-          q: 'Who can use MENTIS?',
-          a: 'MENTIS is designed for O/A Level students, Matric/FSc students, university students, professionals considering career changes, and anyone seeking career guidance.',
-        },
-      ],
-    },
-    {
-      category: 'Assessment',
-      questions: [
-        {
-          q: 'How long does the assessment take?',
-          a: 'The assessment typically takes 30-45 minutes to complete. We recommend taking it in a quiet environment where you can focus without distractions.',
-        },
-        {
-          q: 'Can I retake the assessment?',
-          a: 'Yes! With a student plan, you can retake the assessment as many times as you like. Your interests and goals may evolve, and your assessment results should reflect that.',
-        },
-        {
-          q: 'Is the assessment scientifically validated?',
-          a: 'Yes, our assessment is based on established psychometric principles and validated career assessment frameworks used by professional career counselors.',
-        },
-      ],
-    },
-    {
-      category: 'Results & Recommendations',
-      questions: [
-        {
-          q: 'How accurate are the recommendations?',
-          a: 'Our recommendations are data-driven and based on your assessment results. However, they should be used as guidance alongside your own research and conversations with educators, parents, and counselors.',
-        },
-        {
-          q: 'Can I download my results?',
-          a: 'Yes, student plan users can download their assessment results and career recommendations as a PDF report.',
-        },
-        {
-          q: 'What information do I get about each career?',
-          a: 'For each recommended career, you receive: job description, required education, skills needed, salary ranges, growth prospects, and a learning pathway to get there.',
-        },
-      ],
-    },
-    {
-      category: 'Pricing & Plans',
-      questions: [
-        {
-          q: 'Is there a free trial?',
-          a: 'Yes! We offer a free trial that includes one complete assessment and basic career recommendations. You can upgrade anytime for unlimited access and advanced features.',
-        },
-        {
-          q: 'What payment methods do you accept?',
-          a: 'We accept major credit/debit cards and bank transfers for Pakistani customers. All payments are processed securely.',
-        },
-        {
-          q: 'Do you offer institutional pricing?',
-          a: 'Yes, we offer special pricing for schools, colleges, and universities. Contact our sales team for a custom quote.',
-        },
-      ],
-    },
-    {
-      category: 'Technical',
-      questions: [
-        {
-          q: 'What devices can I use MENTIS on?',
-          a: 'MENTIS is a web-based platform accessible from any device with an internet connection - desktop, laptop, tablet, or smartphone.',
-        },
-        {
-          q: 'Do I need to install anything?',
-          a: 'No installation required! Simply visit our website, create an account, and start your assessment.',
-        },
-        {
-          q: 'Is my data secure?',
-          a: 'Yes, we take data security seriously. All your information is encrypted and stored securely. We never share your personal data with third parties. Read our Privacy Policy for details.',
-        },
-      ],
-    },
-  ];
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
@@ -98,48 +50,51 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Find answers to common questions about MENTIS
+            Get answers to common questions about MENTIS and how it works
           </p>
         </div>
       </section>
 
-      {/* FAQ Sections */}
-      <section className="py-12 px-4">
-        <div className="max-w-4xl mx-auto space-y-12">
-          {faqs.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <h2 className="text-3xl font-bold text-white mb-6">{category.category}</h2>
-              <div className="space-y-4">
-                {category.questions.map((faq, faqIndex) => (
-                  <div
-                    key={faqIndex}
-                    className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition-all"
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-3">{faq.q}</h3>
-                    <p className="text-gray-400 leading-relaxed">{faq.a}</p>
-                  </div>
-                ))}
-              </div>
+      {/* FAQ Items */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <div 
+              key={index}
+              className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full text-left px-6 py-4 flex justify-between items-center hover:bg-slate-800/70 transition-all"
+              >
+                <h3 className="text-lg font-semibold text-white pr-4">{faq.question}</h3>
+                <span className="text-blue-400 text-2xl flex-shrink-0">
+                  {openIndex === index ? '−' : '+'}
+                </span>
+              </button>
+              {openIndex === index && (
+                <div className="px-6 pb-4 pt-2">
+                  <p className="text-gray-300">{faq.answer}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      {/* Still Have Questions */}
+      {/* CTA Section */}
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Still Have Questions?</h2>
-            <p className="text-gray-300 mb-8">
-              Can&apos;t find the answer you&apos;re looking for? Our support team is here to help.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all font-semibold"
-            >
-              Contact Support
-            </Link>
-          </div>
+        <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-12">
+          <h2 className="text-3xl font-bold text-white mb-4">Still have questions?</h2>
+          <p className="text-gray-300 mb-6">
+            Can't find the answer you're looking for? Our support team is here to help.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all font-semibold"
+          >
+            Contact Support
+          </Link>
         </div>
       </section>
     </div>
