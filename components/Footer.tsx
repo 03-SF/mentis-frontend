@@ -12,7 +12,7 @@ export default function Footer() {
             <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent mb-4">
               MENTIS
             </h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-200 text-sm leading-relaxed">
               AI-powered career guidance platform helping students discover their ideal career paths through psychometric assessments.
             </p>
           </div>
@@ -22,22 +22,22 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Platform</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/team" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/team" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Our Team
                 </Link>
               </li>
               <li>
-                <Link href="/roadmap" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/roadmap" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Product Roadmap
                 </Link>
               </li>
               <li>
-                <Link href="/how-to-use" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/how-to-use" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   How to Use
                 </Link>
               </li>
               <li>
-                <Link href="/career-paths" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/career-paths" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Career Paths
                 </Link>
               </li>
@@ -49,22 +49,22 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Support</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/contact" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@mentisera.pk" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <a href="mailto:support@mentisera.pk" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   support@mentisera.pk
                 </a>
               </li>
               <li>
-                <a href="tel:+923001234567" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <a href="tel:+923001234567" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   +92 300 123 4567
                 </a>
               </li>
               <li>
-                <span className="text-gray-400 text-sm">
+                <span className="text-gray-200 text-sm">
                   Street 11, Ghuari Town, 5-B<br/>
                   Islamabad, Pakistan
                 </span>
@@ -77,12 +77,12 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy-policy" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/privacy-policy" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms-and-conditions" className="text-gray-400 hover:text-teal-400 text-sm transition-colors">
+                <Link href="/terms-and-conditions" className="text-gray-200 hover:text-teal-400 text-sm transition-colors">
                   Terms & Conditions
                 </Link>
               </li>
@@ -93,7 +93,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-700/50">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400 mb-4 md:mb-0">
+            <p className="text-sm text-gray-200 mb-4 md:mb-0">
               © {new Date().getFullYear()} MENTIS. All rights reserved. Powered by{' '}
               <a 
                 href="https://mentisera.pk" 
@@ -111,7 +111,7 @@ export default function Footer() {
                 href="https://www.facebook.com/mentiserapk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ export default function Footer() {
                 href="https://x.com/mentiserapk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="X (Twitter)"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export default function Footer() {
                 href="https://linkedin.com/company/mentisera"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@ export default function Footer() {
                 href="https://instagram.com/mentiserapk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -155,7 +155,7 @@ export default function Footer() {
                 href="https://www.youtube.com/@mentiserapk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="YouTube"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -166,7 +166,7 @@ export default function Footer() {
                 href="https://www.tiktok.com/@mentiserapk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-teal-400 transition-colors"
+                className="text-gray-300 hover:text-teal-400 transition-colors"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
