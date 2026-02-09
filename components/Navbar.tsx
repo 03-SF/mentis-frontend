@@ -116,40 +116,40 @@ export default function Navbar() {
             ) : (
               <>
                 <Link
-                  href="/"
-                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/team"
-                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
-                >
-                  Team
-                </Link>
-                <Link
-                  href="/roadmap"
-                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
-                >
-                  Roadmap
-                </Link>
-                <Link
                   href="/how-to-use"
                   className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
                 >
-                  How to Use
+                  How It Works
                 </Link>
                 <Link
-                  href="/career-paths"
+                  href="/features"
                   className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
                 >
-                  Career Paths
+                  Features
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/pricing"
                   className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
                 >
-                  Contact
+                  Pricing
+                </Link>
+                <Link
+                  href="/for-institutions"
+                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
+                >
+                  For Institutions
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/faq"
+                  className="text-gray-700 hover:text-teal-600 font-semibold transition-colors"
+                >
+                  FAQ
                 </Link>
                 <Link
                   href="/auth/login"
@@ -257,46 +257,46 @@ export default function Navbar() {
             ) : (
               <>
                 <Link
-                  href="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/team"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
-                >
-                  Team
-                </Link>
-                <Link
-                  href="/roadmap"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
-                >
-                  Roadmap
-                </Link>
-                <Link
                   href="/how-to-use"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
                 >
-                  How to Use
+                  How It Works
                 </Link>
                 <Link
-                  href="/career-paths"
+                  href="/features"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
                 >
-                  Career Paths
+                  Features
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/pricing"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
                 >
-                  Contact
+                  Pricing
+                </Link>
+                <Link
+                  href="/for-institutions"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
+                >
+                  For Institutions
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/faq"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-gray-700 hover:text-teal-600 font-semibold transition-colors py-2"
+                >
+                  FAQ
                 </Link>
                 <Link
                   href="/auth/login"
