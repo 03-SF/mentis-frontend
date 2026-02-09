@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 export default function Pricing() {
   const plans = [
@@ -146,6 +147,8 @@ export default function Pricing() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Footer from '@/components/Footer';
 
 interface Phase {
   title: string;
@@ -210,17 +211,7 @@ export default function RoadmapPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-700/50 bg-slate-900/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-gray-400">
-            Powered by{' '}
-            <a href="https://mentisera.pk" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:underline">
-              MENTISERA
-            </a>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
