@@ -108,9 +108,16 @@ function ResultsContent() {
         
         // Auto-send PDF email after assessment completion (only for latest result)
         if (allResults[0]?._id === result._id) {
+          console.log('📧 Attempting to send PDF email for latest result');
           const user = JSON.parse(localStorage.getItem('user') || '{}');
+          console.log('User from localStorage:', user);
           if (user.email && user.name) {
-            sendAssessmentPDFEmail(user.name, user.email, result.normalizedScores, typedResponse.data);
+            console.log('✅ User data valid, generating PDF...');
+            sendAssessmentPDFEmail(user.name, user.email, result.normalizedScores, typedResponse.data).catch(err => {
+              console.error('❌ PDF email error:', err);
+            });
+          } else {
+            console.error('❌ User email or name not found in localStorage:', user);
           }
         }
       }
@@ -128,6 +135,7 @@ function ResultsContent() {
     recommendation: RecommendationData
   ) => {
     try {
+      console.log('📄 Generating PDF report...');
       // Generate PDF
       const pdfBlob = generateAssessmentReportPDF(
         userName,
@@ -137,6 +145,8 @@ function ResultsContent() {
         recommendation.detailedRecommendations
       );
       
+      console.log('✅ PDF generated, converting to base64...');
+      
       // Convert Blob to base64
       const reader = new FileReader();
       reader.readAsDataURL(pdfBlob);
@@ -144,6 +154,7 @@ function ResultsContent() {
         const base64data = reader.result?.toString().split(',')[1];
         
         if (base64data) {
+          console.log('📧 Sending PDF email to:', userEmail);
           // Send email with PDF
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/contact/send-pdf`, {
             method: 'POST',
@@ -161,11 +172,17 @@ function ResultsContent() {
           const result = await response.json();
           if (result.success) {
             console.log('✅ Assessment report sent to email successfully');
+          } else {
+            console.error('❌ Failed to send email:', result);
           }
         }
       };
+      
+      reader.onerror = (error) => {
+        console.error('❌ FileReader error:', error);
+      };
     } catch (error) {
-      console.error('Failed to send PDF email:', error);
+      console.error('❌ Failed to send PDF email:', error);
       // Don't show error to user - this is a background operation
     }
   };
