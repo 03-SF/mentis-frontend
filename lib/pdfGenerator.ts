@@ -489,3 +489,253 @@ export const generateTermsAndConditionsPDF = () => {
   addFooter(doc, pageNum, 2);
   doc.save('MENTIS_Terms_And_Conditions.pdf');
 };
+
+// Generate Assessment Report PDF
+export const generateAssessmentReportPDF = (
+  userName: string,
+  scores: { A: number; C: number; S: number; P: number },
+  topCategories: string[],
+  recommendedCareers: string[],
+  detailedRecommendations?: Array<{
+    career: string;
+    confidence: string;
+    reason: string;
+    environment: string[];
+    pace: string[];
+  }>
+): Blob => {
+  const doc = new jsPDF();
+  
+  // Page 1: Cover & Overview
+  addHeader(doc, 'Career Assessment Report');
+  
+  let yPos = 70;
+  
+  // User Info
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.dark);
+  doc.text(`Report for: ${userName}`, 20, yPos);
+  yPos += 8;
+  
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(COLORS.text);
+  doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, yPos);
+  yPos += 15;
+  
+  // RIASEC Scores Section
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.primary);
+  doc.text('Your RIASEC Profile', 20, yPos);
+  yPos += 10;
+  
+  const categoryNames: { [key: string]: string } = {
+    A: 'Analytical',
+    C: 'Creative',
+    S: 'Social',
+    P: 'Practical'
+  };
+  
+  // Scores table
+  const scoreData = Object.entries(scores).map(([key, value]) => [
+    categoryNames[key],
+    `${value}%`,
+    key === topCategories[0] || key === topCategories[1] ? '★ Top Strength' : ''
+  ]);
+  
+  doc.autoTable({
+    startY: yPos,
+    head: [['Category', 'Score', 'Status']],
+    body: scoreData,
+    theme: 'grid',
+    headStyles: { fillColor: [20, 184, 166], textColor: 255 },
+    styles: { fontSize: 10 },
+    columnStyles: {
+      0: { cellWidth: 60 },
+      1: { cellWidth: 40, halign: 'center' },
+      2: { cellWidth: 70, halign: 'center', fontStyle: 'bold' }
+    }
+  });
+  
+  yPos = doc.lastAutoTable.finalY + 15;
+  
+  // Top Career Recommendations
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.primary);
+  doc.text('Your Top Career Matches', 20, yPos);
+  yPos += 10;
+  
+  recommendedCareers.slice(0, 5).forEach((career, index) => {
+    if (yPos > 250) {
+      addFooter(doc, 1, 3);
+      doc.addPage();
+      yPos = 30;
+    }
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.dark);
+    doc.text(`${index + 1}. ${career}`, 25, yPos);
+    yPos += 7;
+    
+    const recommendation = detailedRecommendations?.find(r => r.career === career);
+    if (recommendation) {
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(COLORS.text);
+      const reasonLines = doc.splitTextToSize(recommendation.reason, 160);
+      reasonLines.forEach((line: string) => {
+        if (yPos > 270) {
+          addFooter(doc, 1, 3);
+          doc.addPage();
+          yPos = 30;
+        }
+        doc.text(line, 28, yPos);
+        yPos += 5;
+      });
+    }
+    yPos += 3;
+  });
+  
+  addFooter(doc, 1, 3);
+  
+  // Page 2: Detailed Career Information
+  if (detailedRecommendations && detailedRecommendations.length > 0) {
+    doc.addPage();
+    yPos = 30;
+    
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.primary);
+    doc.text('Detailed Career Analysis', 20, yPos);
+    yPos += 15;
+    
+    detailedRecommendations.slice(0, 5).forEach((rec, index) => {
+      if (yPos > 240) {
+        addFooter(doc, 2, 3);
+        doc.addPage();
+        yPos = 30;
+      }
+      
+      // Career name
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(COLORS.dark);
+      doc.text(`${index + 1}. ${rec.career}`, 20, yPos);
+      yPos += 8;
+      
+      // Confidence
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(COLORS.primary);
+      doc.text(`Match Confidence: ${rec.confidence}`, 25, yPos);
+      yPos += 7;
+      
+      // Environment
+      if (rec.environment && rec.environment.length > 0) {
+        doc.setTextColor(COLORS.text);
+        doc.text(`Work Environment: ${rec.environment.join(', ')}`, 25, yPos);
+        yPos += 6;
+      }
+      
+      // Pace
+      if (rec.pace && rec.pace.length > 0) {
+        doc.text(`Work Pace: ${rec.pace.join(', ')}`, 25, yPos);
+        yPos += 6;
+      }
+      
+      yPos += 5;
+    });
+    
+    addFooter(doc, 2, 3);
+  }
+  
+  // Page 3: Next Steps
+  doc.addPage();
+  yPos = 30;
+  
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(COLORS.primary);
+  doc.text('Your Next Steps', 20, yPos);
+  yPos += 15;
+  
+  const nextSteps = [
+    {
+      title: '1. Explore Your Top Careers',
+      content: 'Research each of your top career matches to understand the day-to-day work, required skills, and growth opportunities.'
+    },
+    {
+      title: '2. Develop Key Skills',
+      content: 'Focus on building skills relevant to your top career paths through online courses, certifications, or hands-on projects.'
+    },
+    {
+      title: '3. Network & Connect',
+      content: 'Join professional communities, attend industry events, and connect with professionals in your target fields.'
+    },
+    {
+      title: '4. Gain Experience',
+      content: 'Look for internships, volunteer opportunities, or entry-level positions to gain practical experience in your chosen field.'
+    },
+    {
+      title: '5. Create Your Learning Roadmap',
+      content: 'Use the MENTIS platform to generate a detailed 90-day learning plan tailored to your career goals.'
+    }
+  ];
+  
+  nextSteps.forEach(step => {
+    if (yPos > 250) {
+      addFooter(doc, 3, 3);
+      doc.addPage();
+      yPos = 30;
+    }
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.dark);
+    doc.text(step.title, 20, yPos);
+    yPos += 7;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(COLORS.text);
+    const lines = doc.splitTextToSize(step.content, 170);
+    lines.forEach((line: string) => {
+      doc.text(line, 25, yPos);
+      yPos += 5;
+    });
+    yPos += 5;
+  });
+  
+  // Contact Info
+  yPos += 10;
+  if (yPos > 250) {
+    addFooter(doc, 3, 3);
+    doc.addPage();
+    yPos = 30;
+  }
+  
+  doc.setFillColor(20, 184, 166);
+  doc.rect(20, yPos, 170, 30, 'F');
+  yPos += 10;
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('Need Help? Contact Us!', 105, yPos, { align: 'center' });
+  yPos += 8;
+  
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Email: support@mentisera.pk', 105, yPos, { align: 'center' });
+  yPos += 6;
+  doc.text('Visit: https://mentisera.pk', 105, yPos, { align: 'center' });
+  
+  addFooter(doc, 3, 3);
+  
+  // Return as Blob instead of saving
+  return doc.output('blob');
+};

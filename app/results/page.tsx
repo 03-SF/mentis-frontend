@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { assessmentApi, recommendationApi } from '../lib/api';
+import { generateAssessmentReportPDF } from '../lib/pdfGenerator';
 
 interface Scores {
   A: number;
@@ -104,11 +105,68 @@ function ResultsContent() {
       const typedResponse = response as { success?: boolean; data?: RecommendationData };
       if (typedResponse.success && typedResponse.data) {
         setRecommendation(typedResponse.data);
+        
+        // Auto-send PDF email after assessment completion (only for latest result)
+        if (allResults[0]?._id === result._id) {
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          if (user.email && user.name) {
+            sendAssessmentPDFEmail(user.name, user.email, result.normalizedScores, typedResponse.data);
+          }
+        }
       }
     } catch (err: unknown) {
       console.error('Error fetching recommendation:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const sendAssessmentPDFEmail = async (
+    userName: string,
+    userEmail: string,
+    scores: Scores,
+    recommendation: RecommendationData
+  ) => {
+    try {
+      // Generate PDF
+      const pdfBlob = generateAssessmentReportPDF(
+        userName,
+        scores,
+        recommendation.topCategories,
+        recommendation.recommendedCareers,
+        recommendation.detailedRecommendations
+      );
+      
+      // Convert Blob to base64
+      const reader = new FileReader();
+      reader.readAsDataURL(pdfBlob);
+      reader.onloadend = async () => {
+        const base64data = reader.result?.toString().split(',')[1];
+        
+        if (base64data) {
+          // Send email with PDF
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/contact/send-pdf`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: userName,
+              email: userEmail,
+              documentType: 'Career Assessment Report',
+              pdfBuffer: base64data
+            })
+          });
+          
+          const result = await response.json();
+          if (result.success) {
+            console.log('✅ Assessment report sent to email successfully');
+          }
+        }
+      };
+    } catch (error) {
+      console.error('Failed to send PDF email:', error);
+      // Don't show error to user - this is a background operation
     }
   };
 
