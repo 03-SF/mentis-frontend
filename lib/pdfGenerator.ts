@@ -545,7 +545,7 @@ export const generateAssessmentReportPDF = (
     key === topCategories[0] || key === topCategories[1] ? '★ Top Strength' : ''
   ]);
   
-  doc.autoTable({
+  autoTable(doc, {
     startY: yPos,
     head: [['Category', 'Score', 'Status']],
     body: scoreData,
@@ -559,7 +559,7 @@ export const generateAssessmentReportPDF = (
     }
   });
   
-  yPos = doc.lastAutoTable.finalY + 15;
+  yPos = (doc as any).lastAutoTable.finalY + 15;
   
   // Top Career Recommendations
   doc.setFontSize(14);
