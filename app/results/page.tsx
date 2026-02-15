@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { assessmentApi, recommendationApi } from '../lib/api';
-import { generateAssessmentReportPDF } from '../lib/pdfGenerator';
+import { generateAssessmentReportPDF } from '../../lib/pdfGenerator';
 
 interface Scores {
   A: number;
